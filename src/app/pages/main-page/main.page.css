@@ -1,0 +1,34 @@
+.bannerContainer {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.bottom-right {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+}
+
+a.tavicon img {
+  width: 100%;
+}
+.transform{
+  color: black;
+  padding: 5px;
+}
+.transform:hover{
+  transform: scale(1.05);
+  transition-duration: 1s;
+}
+
+a.tavicon:hover {
+  transform: scale(2);
+  transition-duration:1s;
+}

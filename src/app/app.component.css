@@ -1,0 +1,51 @@
+.navbar-inverse .navbar-collapse,
+.navbar-inverse .navbar-form {
+  display: flex !important;
+  justify-content: center;
+}
+
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:focus,
+.navbar-inverse .navbar-nav>.open>a:hover {
+  background-color: unset !important;
+}
+.navbar-inverse .navbar-nav>.active>a {
+  font-weight: bolder !important;
+  background-color: unset !important;
+  color: #4cb33ddb !important;
+  text-decoration: underline !important;
+}
+
+.navbar-inverse .navbar-nav>.active>a:hover {
+  font-weight: bolder !important;
+  background-color: unset !important;
+  color: #4cb33ddb !important;
+  text-decoration: underline !important;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+  color: #000000 !important;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+  background-color: unset !important;
+  color: #000 !important;
+  border-radius: 45px !important;
+  text-decoration: underline !important;
+}
+.navbar {
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px #999;
+}
+
+.navbar {
+  background-color: #ffffffdb !important;
+  border: unset !important;
+  box-shadow: 0px 10px 70px 30px #fff !important;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0; /* remove the gap so it doesn't close */
+}

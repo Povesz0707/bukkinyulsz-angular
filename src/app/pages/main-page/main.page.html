@@ -1,0 +1,252 @@
+<div id="wrapper">
+  <div ui-view="content" id="content" class="ng-scope" style="    text-align: -webkit-center;">
+    <div class="bannerContainer" style="display: flex;">
+      <div class="bottom-left" style="box-shadow: 0px 0px 20px 7px #000;">
+        <div style="text-align-last: center; display: inline-table;">
+          <div *ngIf="hasRemainingTime" style="background-color: #00000081;">
+            <label style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Nevezési határidő lejárta:</label>
+          </div>
+
+          <div *ngIf="hasRemainingTime" style=" display: flex;flex-direction: row; justify-content: center; ">
+            <div style="background-color: #ffffff00; padding: 10px; box-shadow:inset  0px 0px 5px 0px rgba(180,180,180,0.5)">
+              <div style="width: 70px; height: 50px;background-color: #00000081; color: #fff; font-size: x-large; display: flex;align-items: center; justify-content: center;"><b>{{daysLeft}}</b></div>
+              <div style="text-align: -webkit-center; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"><b>Nap</b></div>
+            </div>
+            <div style=" background-color: #ffffff00; padding: 10px; box-shadow:inset  0px 0px 5px 0px rgba(180,180,180,0.5)">
+              <div style="width: 70px;height: 50px;background-color: #00000081; color: #fff; font-size: x-large; display: flex;align-items: center; justify-content: center;"><b>{{hoursLeft}}</b></div>
+              <div style="text-align: -webkit-center; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"><b>Óra</b></div>
+            </div>
+            <div style=" background-color: #ffffff00; padding: 10px; box-shadow:inset  0px 0px 5px 0px rgba(180,180,180,0.5)">
+              <div style="width: 70px;height: 50px; background-color: #00000081; color: #fff; font-size: x-large; display: flex;align-items: center; justify-content: center;"><b>{{minutesLeft}}</b></div>
+              <div style="text-align: -webkit-center; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"><b>Perc</b></div>
+            </div>
+          </div>
+          <div *ngIf="hasRemainingTime" style="background-color: #00000081;">
+            <a style="color: #fff; font-size: 20px;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" href="https://bukkinyulsz.hu/event/tt2022/nevezes" target="_blank">Leadom a nevezésem <i class="bi bi-arrow-right-circle"></i></a>
+          </div>
+          <div *ngIf="hasRemainingTime == false" style="background-color: #00000081;">
+            <a style="color: #fff; font-size: 20px;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" >Sajnáljuk, de az előnevezési határidő lejárt!</a>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-right">
+        <div >
+          <div style="display: flex; padding-top: 50px;">
+            <a class="tavicon" href="https://bukkinyulsz.hu/#/leiras/hu/10" data-target="#modalCenter10km" data-toggle="modal" >
+              <img (click)="openTavDialog('10')"  style="height: 100px; max-width: 100px;" src="./assets/images/logo/logo10.png">
+            </a>
+            <a class="tavicon" href="https://bukkinyulsz.hu/#/leiras/hu/13" >
+              <img style="height: 100px; max-width: 100px;" src="./assets/images/logo/logo13.png" data-toggle="modal" data-target="#myModal">
+            </a>
+            <a class="tavicon" href="https://bukkinyulsz.hu/#/leiras/hu/26"><img
+              style="height: 100px; max-width: 100px;" src="./assets/images/logo/logo26.png"></a>
+            <a class="tavicon" href="https://bukkinyulsz.hu/#/leiras/hu/35"><img
+              style="height: 100px; max-width: 100px;" src="./assets/images/logo/logo35.png"></a>
+            <a class="tavicon" href="https://bukkinyulsz.hu/#/leiras/hu/60"><img
+              style="height: 100px; max-width: 100px;" src="./assets/images/logo/logo60.png"></a>
+
+          </div>
+        </div>
+      </div>
+      <img style="width: 100%"
+           src="https://trekhunt.com/_next/image/?url=https%3A%2F%2Fs3.eu-west-3.amazonaws.com%2Fimages.trekhunt.com%2F2021%2F01%2Fbukk-nemzeti-park-2-1.webp&w=3840&q=75">
+    </div>
+  </div>
+</div>
+
+
+<div style="width: 100%; padding: 00px; text-align: -webkit-left;">
+  <div style=" box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 100%; background-color: #fff; padding: 10px;">
+    <h2 style="text-align: -webkit-left;" class="card-title"><b>Indulj el egy nyúlon... ...várunk
+      Cserépfalun június 25-án</b></h2>
+    <h6 style="text-align: -webkit-left;" class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <div class="card-body" style="display: flex;">
+      <div style="text-align: start;">
+        <label>Újra megrendezzük a BükKiNyúlsz! Teljestíménytúrát Cserépfalun 2022. június 25-án! Mi már
+          nagyon vártuk, hogy újra találkozhassunk Veletek, így meginvitálunk Benneteket egy csodás
+          túranapra, hogy bebaranglhassátok a Déli-Bükk ösvényeit, csodálhassátok panorámáit!</label>
+        <label>Az útvonalakról bővebb információt a <a href="#" class="link-success"><b>Távok</b><i class="link-success bi bi-box-arrow-in-right"></i></a> menüpont
+          alatt találtok, majd a szimpatikus kihívást kiválasztva a <b><a href="https://bukkinyulsz.hu/event/tt2022/nevezes" class="link-success">Nevezés <i class="link-success bi bi-box-arrow-in-right"></i></a></b>-nél tudjátok leadni a regisztrációtokat.</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section id="scrollspyHeading1">
+  <div style="width: 100%; padding: 10px; text-align: -webkit-center;">
+    <div class="card"
+         style="box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 90%; background-color: #fff; padding: 10px;">
+      <h2 style="text-align: -webkit-left;" class="card-title"><b>Infók a BükKiNyúlsz! túrák instant
+        (egyéni) teljesítéséről</b></h2>
+      <h6 style="text-align: -webkit-left;" class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+      <div class="card-body" style="display: flex;">
+        <div style="text-align: start;">
+          <p class="ng-scope">A Bükk déli oldala számos csodás helyszínt rejteget! Ezért szerveznek
+            megannyi (teljesítmény)túrát, erre a vidékre, ezért rendeztük mi is az elmúlt két évben
+            Cserépfalu környékére a BükKiNyúlsz! túrákat és ezért invitálunk Téged újra a vidékre a
+            BükKiNyúlsz! 365 instant túránk teljesítésével!</p>
+          <p class="ng-scope">Itt az alkalom tehát, hogy felfedezd, felidézd, átéld a környék
+            milliőjét, elkerülve a tömegturizmust, átadva magad a Bükk vadonjának! A táj, a
+            Hór-völgye, Ódorvár bérce, vagy az Oszlai Tájház csendje magával ragad és visszavár az
+            év bármely szakában, legyen szó csoportos rendezvényekről, teljesítménytúrákról,
+            vezetett kirándulásokról, vagy akár magányos barangolásról!</p>
+          <p class="ng-scope">Na de miről is szól a BükKiNyúlsz! 365? Egy olyan túraútvonal ez, melyen
+            Te döntöd el, hogy mikor indulsz el, és szintén rajtad áll, hogy sportosan, vagy csak
+            kellemesen járod be a pályát! Akár csak egy teljesítménytúrán, itt is meghatározott
+            útvonalon kell haladnod, előre megadott pontokat érintve! Természetesen itt még nem ér
+            véget a móka, mivel minden távra meghatároztunk egy minimális szintidőt is. Ne aggódj,
+            nem leszünk kegyetlenek!</p>
+          <p class="ng-scope">Ha szintidőn belül érsz célba, minden esetben oklevellel jutalmazunk.
+            Ezen felül a nevezésnél választhatod a különleges, kézzel készült, mázas cserép érménket
+            is, hiszen mégiscsak Cserépfalu szomszédságában jársz! </p>
+          <p class="ng-scope">A jelenleg megnyitott 3 útvonal tehát (
+            <b><a class="link-success" ui-sref="leiras({leirasDoc:&#39;13&#39;})" href="https://bukkinyulsz.hu/#/leiras/hu/13">13 km <i class="link-success bi bi-box-arrow-in-right"></i></a></b>,
+            <b><a class="link-success" ui-sref="leiras({leirasDoc:&#39;26&#39;})" href="https://bukkinyulsz.hu/#/leiras/hu/26">26 km <i class="link-success bi bi-box-arrow-in-right"></i></a></b> és
+            <b><a class="link-success" ui-sref="leiras({leirasDoc:&#39;35&#39;})" href="https://bukkinyulsz.hu/#/leiras/hu/35">35 km <i class="link-success bi bi-box-arrow-in-right"></i></a></b>
+            ) bármikor teljesíthető. Ehhez
+            mindössze egy vagy több elhivatott túrázóra és persze mobiltelefonra van szükség - az
+            ajálott felszereléseken túl! Indulás előtt mindenképp tanulmányozd a teljesítés
+            menetéről és az ajánlott felszerelésről szóló tájékoztatónkat! Az útvonalakra bármelyik
+            ellenőrzőpontról becsatlakozhatsz, de az infrastruktúra és a parkolási / vízvételi
+            lehetőségek miatt mi a Cserépfalu szélén található Suba-lyuk Múzeum és Látogatóközpontot
+            ajánljuk starthelyként.</p>
+          <p class="ng-scope">A sikeres teljesítéshez, .gpx trackkel, szöveges itinerrel, illetve
+            kinyomtatható térképpel is segítünk, hogy biztosan a megfelelő úton indulj el! A túra
+            indításának, virtuális pecsételésének megismeréséhez látogass el a tehát
+            <b><a href="https://geogo.hu/info" class="link-success" target="_blank">GeoGo oldalára<i class="link-success bi bi-box-arrow-in-right"></i></a></b>, mely a teljesítés elengedhetetlen feltétele.</p>
+          <p class="ng-scope">Ha a túra felkeltette az érdeklődésed, nincs más hátra, ugorj a nevezési
+            felületre!</p>
+        </div>
+        <div
+          style="box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5); margin: 10px;     align-self: center;">
+          <img style=" max-width: 33vw; float: right;" src="./main_files/foto_2.jpg">
+        </div>
+      </div>
+      <div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="width: 100%; padding: 10px; text-align: -webkit-center;">
+  <div class="card"
+       style=" box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 90%; background-color: #fff; padding: 10px;">
+    <h2 style="text-align: -webkit-left;" class="card-title"><b>Díjazás (Instant túra)</b></h2>
+    <h6 style="text-align: -webkit-left;" class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <div class="card-body" style="display: flex;">
+      <div style="text-align: start;">
+        <p class="ng-scope">A nevezésnél választható csomagok alapján: </p>
+        <ul class="ng-scope">
+          <li>oklevél</li>
+          <li>egyedi, kézzel készült cserépérem</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<section id="scrollspyHeading2">
+  <div style="width: 100%; padding: 10px; text-align: -webkit-center;">
+    <div class="card"
+         style=" box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 90%; background-color: #fff; padding: 10px;">
+      <h2 style="text-align: -webkit-left;" class="card-title"><b>Megközelítés, rajt/cél</b></h2>
+      <h6 style="text-align: -webkit-left;" class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+      <div class="card-body" style="display: flex;">
+        <div style="text-align: start;">
+          <p class="ng-scope">A túraútvonal által érintett, szolgáltatásokkal legjobban ellátott pont
+            Cserépfalu határában a Suba-lyuk Múzeum és Látogatóközpont komplexuma.</p>
+          <p class="ng-scope">A Budapesttől bő 1,5 órányi, Miskolctól 1 órányi, Egertől 30 pernyi,
+            Mezőkövesdtől 20 percnyi távolságra található helyszín mind személyautóval, mind
+            tömegközlekedési eszközzel kiválóan megközelíthető.</p>
+          <p class="ng-scope">Az autóval érkezők számára fontos információ, hogy a Látogatóközpontnál
+            ingyenes és biztonságos parkolási lehetőség található.</p>
+          <p class="ng-scope">A tömegközlekedéssel érkezők pedig közvetlenül a <b><a
+            href="https://goo.gl/maps/Rb8h734Wzuyy8UWS7"
+            target="_blank">Látogatóközpontnál</a></b> tudnak leszállni (Cserépfalu,
+            Hórvölgyi útelágazás autóbusz megálló).</p>
+
+          <a>Elérhetőségek :</a>
+          <a title="@subalyukmuzeumeslatogatokozpont" style="font-size: 25px;color: #000; padding: 5px" class="bi bi-facebook" href="https://www.facebook.com/subalyukmuzeumeslatogatokozpont/"></a>
+          <a title="Látogatóközpont Google maps-en" style="font-size: 25px; color: #000; padding: 5px" class="bi bi-map" href="https://goo.gl/maps/Rb8h734Wzuyy8UWS7"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="transform" style="width: 100%; padding: 10px; text-align: -webkit-center;">
+  <div class="card "
+       style=" box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 90%; background-color: #fff; padding: 10px;">
+    <h2 style="text-align: -webkit-left;" class="card-title"><b>További infók</b></h2>
+    <h6 style="text-align: -webkit-left;" class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <div class="card-body" style="display: flex;">
+      <div style="text-align: start;">
+        <p class="ng-scope">Túráinkkal kapcsolatban friss és hiteles információkért kövesd folyamatosan
+          Facebook oldalunkat. Kérdéseid esetén keress bennünket <b><a
+            ui-sref="leiras({leirasDoc:&#39;kapcsolat&#39;})"
+            href="https://bukkinyulsz.hu/#/leiras/hu/kapcsolat">elérhetőségeinken</a></b>!</p>
+        <p class="ng-scope">Ne feledd! A távválasztás mindenkinek saját felelőssége, igazodva az
+          erőnléthez és tájékozódási képességekhez, a terepviszonyokhoz, valamint az időjáráshoz.</p>
+        <p class="ng-scope">Honlapunkról letölthető az útvonal pontos részleteit tartalmazó szöveges és
+          térképes itiner, ez alapján a tájékozódás az induló feladata, a pályán személyzet nem
+          tartózkodik az induló segítésére.</p>
+        <p class="ng-scope">A túratávok útvonala döntően jelzett utakon vezet, de Ódorvár elhagyása után
+          jelzetlen szakasz következik. Az utak innen is egyértelműek, könnyen követhetőek a célig, de
+          e szakaszokon fokozottan ajánlott a leírás és navigáció használata.</p>
+        <a>Elérhetőségek :</a>
+        <a  style="font-size: 25px; color: #000; padding: 5px" title="Facebook" class="bi bi-facebook" href="https://www.facebook.com/subalyukmuzeumeslatogatokozpont/"></a>
+        <a style="font-size: 25px;color: #000;  padding: 5px" title="Instagram" class="bi bi-instagram"></a>
+        <a style="font-size: 25px;color: #000; padding: 5px" title="Emmaik" class="bi bi-envelope-at" href="mailto:info@bukkinyulsz.com"></a>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="width: 100%; text-align: -webkit-right;">
+  <div class=""
+       style="margin:0px 0px 0px 0px; box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 100%; background-color: #fff; padding: 10px;">
+    <footer class="">
+      <ul class="nav justify-content-center border-bottom "
+          style="display: flex;justify-content: center;">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Főoldal</a></li>
+      </ul>
+      <ul class="nav justify-content-center border-bottom " style="display: flex;justify-content: center; padding: auto;">
+        <li class="transform"><a style="color: black; font-size: 30px" title="Facebook" class="bi bi-facebook" href="https://www.facebook.com/subalyukmuzeumeslatogatokozpont/"></a></li>
+        <li class="transform"><a style="color: black; font-size: 30px" title="Instagram" class="bi bi-instagram"></a></li>
+        <li class="transform"><a style="color: black; font-size: 30px" title="Email" class="bi bi-envelope-at " href="mailto:info@bukkinyulsz.com"></a></li>
+      </ul>
+      <ul class="nav justify-content-center border-bottom" style="display: flex;justify-content: center;">
+        <li class="nav-item" style=" padding: 5px"><a href="https://bukkinyulsz.hu/#/leiras/hu/gdpr">Adatkezelési szabályzat</a></li>
+        <li class="nav-item" style=" padding: 5px"><a href="https://bukkinyulsz.hu/#/leiras/hu/aszf">ÁSZF</a></li>
+      </ul>
+      <div>
+        <p class="text-center text-muted" style="margin: unset;">A BükKiNyúlsz! túrák szervezője a NA,
+          Gyere Inkább Mozogni! Természetjáró és Ismeretterjesztő Egyesület.</p>
+        <p class="text-center text-muted" style="margin: unset;">NAGY-IM Egyesület</p>
+        <p class="text-center text-muted" style="margin: unset;">Székhely: 4445 Nagycserkesz, Vasvári
+          Pál u. 12.</p>
+        <p class="text-center text-muted" style="margin: unset;">Adószám: 19210977-1-15</p>
+        <p class="text-center text-muted" style="margin: unset;">Tel: +36 30 360 7924</p>
+        <p class="text-center text-muted" style="margin: unset;">Bank: OTP 11738015-21397444-00000000
+        </p>
+      </div>
+      <br>
+      <p class="text-center text-muted">© 2023 NAGY-IM Egyesület</p>
+    </footer>
+  </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalCenter10km" role="dialog" style="width: 100%;     padding: 10px;">
+  <div class="modal-dialog modal-dialog-scrollable" style="max-width: unset;width: 100%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">10 km — Nyuszifül</h1>
+      </div>
+      <div class="modal-body">
+        <distance-10km></distance-10km>
+      </div>
+    </div>
+  </div>
+</div>
+
