@@ -10,7 +10,6 @@ import {DistanceService} from "../../../services/distance-service/distance.servi
 export class Distance10km implements OnInit{
   ngOnInit(): void {
     this.globalService.checkpointService.list().subscribe(value => {
-      console.log("done asd")
     })
 
   }

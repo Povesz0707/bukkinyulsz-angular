@@ -25,7 +25,7 @@
             <a style="color: #fff; font-size: 20px;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" href="https://bukkinyulsz.hu/event/tt2022/nevezes" target="_blank">Leadom a nevezésem <i class="bi bi-arrow-right-circle"></i></a>
           </div>
           <div *ngIf="hasRemainingTime == false" style="background-color: #00000081;">
-            <a style="color: #fff; font-size: 20px;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" >Sajnáljuk, de az előnevezési határidő lejárt!</a>
+            <a style="color: #fff; font-size: 20px;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" >Sajnáljuk, de csak {{generalUtils.getLocaleDateString(tourEvent.applicationDeadline)}} -ig lehetett online előnevezni! </a>
           </div>
         </div>
       </div>
@@ -190,39 +190,6 @@
     </div>
   </div>
 </div>
-<div style="width: 100%; text-align: -webkit-right;">
-  <div class=""
-       style="margin:0px 0px 0px 0px; box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 100%; background-color: #fff; padding: 10px;">
-    <footer class="">
-      <ul class="nav justify-content-center border-bottom "
-          style="display: flex;justify-content: center;">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Főoldal</a></li>
-      </ul>
-      <ul class="nav justify-content-center border-bottom " style="display: flex;justify-content: center; padding: auto;">
-        <li class="transform"><a style="color: black; font-size: 30px" title="Facebook" class="bi bi-facebook" href="https://www.facebook.com/subalyukmuzeumeslatogatokozpont/"></a></li>
-        <li class="transform"><a style="color: black; font-size: 30px" title="Instagram" class="bi bi-instagram"></a></li>
-        <li class="transform"><a style="color: black; font-size: 30px" title="Email" class="bi bi-envelope-at " href="mailto:info@bukkinyulsz.com"></a></li>
-      </ul>
-      <ul class="nav justify-content-center border-bottom" style="display: flex;justify-content: center;">
-        <li class="nav-item" style=" padding: 5px"><a href="https://bukkinyulsz.hu/#/leiras/hu/gdpr">Adatkezelési szabályzat</a></li>
-        <li class="nav-item" style=" padding: 5px"><a href="https://bukkinyulsz.hu/#/leiras/hu/aszf">ÁSZF</a></li>
-      </ul>
-      <div>
-        <p class="text-center text-muted" style="margin: unset;">A BükKiNyúlsz! túrák szervezője a NA,
-          Gyere Inkább Mozogni! Természetjáró és Ismeretterjesztő Egyesület.</p>
-        <p class="text-center text-muted" style="margin: unset;">NAGY-IM Egyesület</p>
-        <p class="text-center text-muted" style="margin: unset;">Székhely: 4445 Nagycserkesz, Vasvári
-          Pál u. 12.</p>
-        <p class="text-center text-muted" style="margin: unset;">Adószám: 19210977-1-15</p>
-        <p class="text-center text-muted" style="margin: unset;">Tel: +36 30 360 7924</p>
-        <p class="text-center text-muted" style="margin: unset;">Bank: OTP 11738015-21397444-00000000
-        </p>
-      </div>
-      <br>
-      <p class="text-center text-muted">© 2023 NAGY-IM Egyesület</p>
-    </footer>
-  </div>
 
-</div>
 
 

@@ -5,6 +5,7 @@ import {GlobalService} from "../../../services/global.service";
 import {GeneralUtils} from "../../../utils/general.utils";
 import {Marking} from "../../../model/marking-model/marking.model";
 import {SubSection} from "../../../model/subSection-model/subSection.model";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'distance-view',
@@ -14,31 +15,32 @@ import {SubSection} from "../../../model/subSection-model/subSection.model";
 export class DistanceView implements OnInit{
   @Input('distance_id') distanceId: number
   distance: Distance = new Distance()
+  urlId: number;
   ngOnInit(): void {
+    this.urlId = Number(this.route.snapshot.paramMap.get('id'));
     this.getData()
   }
   getData(){
-    if(this.data.id)
-    this.globalService.distanceService.get(this.data.id).subscribe(value => {
+    var incomingId:number | undefined
+
+    if(this.data && this.data.id){
+      incomingId = this.data.id;
+    }
+    else if( this.urlId ){
+      incomingId =  this.urlId
+    }
+    if(incomingId)
+    this.globalService.distanceService.get(incomingId).subscribe(value => {
       this.distance = value;
-      console.log(this.distance)
     })
   }
 
 
-  constructor(private globalService: GlobalService,@Inject(MAT_DIALOG_DATA) public data: Distance, public generalUtils: GeneralUtils) {
+  constructor(private globalService: GlobalService, @Inject(MAT_DIALOG_DATA) public data: Distance, public generalUtils: GeneralUtils,private route: ActivatedRoute) {
   }
 
   redirectToDownload(url: string | undefined  ) {
     if (url == undefined) return
     window.location.href = url;
-  }
-
-  sout(markings?: SubSection) {
-    if (markings)
-      markings.markings?.forEach(value => {
-
-      })
-
   }
 }

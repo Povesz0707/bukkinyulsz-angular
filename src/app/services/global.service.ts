@@ -4,11 +4,14 @@ import {DistanceService} from "./distance-service/distance.service";
 import {MarkingService} from "./marking-service/marking.service";
 import {RewardService} from "./reward-service/reward.service";
 import {SubSectionService} from "./subSection-service/subSection.service";
+import {TourEventService} from "./tourEvent-service/tourEvent.service";
+import {TourEventDistanceService} from "./tourEvent-distance-service/tourEvent.distance.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalService {
-  constructor(public checkpointService: CheckpointService, public distanceService: DistanceService, public markingService: MarkingService, public rewardService: RewardService, public subSectionService: SubSectionService) {
+  constructor(public checkpointService: CheckpointService, public distanceService: DistanceService, public markingService: MarkingService, public rewardService: RewardService,
+              public subSectionService: SubSectionService, public tourEventService:TourEventService, public tourEventDistanceService:TourEventDistanceService) {
   }
 }

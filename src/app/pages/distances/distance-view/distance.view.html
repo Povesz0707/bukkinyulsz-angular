@@ -1,4 +1,7 @@
-<h1 mat-dialog-title>{{distance.length}} - {{distance.name}}</h1>
+<div mat-dialog-title style="width: 100%;display: flex;padding: 9px 24px 9px;">
+  <label style="width: -webkit-fill-available;">{{distance.length}} - {{distance.name}}</label>
+  <button type="button" mat-dialog-close class="btn btn btn-light btn-sm bi bi-x-lg"></button>
+</div>
 <div mat-dialog-content style="font-size: 14px">
   <div class="row">
     <div class="col-6" style="align-self: center;">

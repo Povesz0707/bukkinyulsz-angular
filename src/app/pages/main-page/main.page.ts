@@ -3,6 +3,7 @@ import {GlobalService} from "../../services/global.service";
 import {Distance} from "../../model/distance-model/distance";
 import {GeneralUtils} from "../../utils/general.utils";
 import {DistanceView} from "../distances/distance-view/distance.view";
+import {TourEvent} from "../../model/tourEvent-model/tourEvent.model";
 
 @Component({
   templateUrl:'main.page.html',
@@ -15,14 +16,21 @@ export class MainPage implements OnInit{
   minutesLeft?:number
   hasRemainingTime?:boolean
   distanceList: Distance[] = [];
+  tourEvent:TourEvent = new TourEvent()
   ngOnInit(): void {
     this.getDistancesList()
-    this.getRegistrationRemainingTime()
+
   }
   getDistancesList(){
-    this.globalService.distanceService.list().subscribe(value => {
-      this.distanceList = value;
-      console.log(value.length)
+    this.distanceList = []
+    this.globalService.tourEventService.getLatestActive().subscribe(value => {
+      this.tourEvent = value
+        value.tourEventDistances?.forEach(value1 => {
+          if(value1.distance){
+            this.distanceList.push(value1.distance)
+          }
+        })
+      this.getRegistrationRemainingTime(value.applicationDeadline)
     })
   }
 
@@ -30,8 +38,9 @@ export class MainPage implements OnInit{
   constructor(private globalService : GlobalService, public generalUtils: GeneralUtils) {
   }
 
-  getRegistrationRemainingTime(){
-    var countDownDate = new Date("2023-06-12 11:00").getTime();
+  getRegistrationRemainingTime(d?:Date){
+    if(d == undefined) return
+    var countDownDate = new Date(d).getTime();
     var x = setInterval(() => {
       var now = new Date().getTime();
       var distance = countDownDate - now;

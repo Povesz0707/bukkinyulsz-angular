@@ -1,0 +1,209 @@
+<div mat-dialog-title style="width: 100%;display: flex;padding: 9px 24px 9px;">
+  <label style="width: -webkit-fill-available;">{{openingTypeText}}</label>
+  <button type="button" mat-dialog-close class="btn btn btn-light btn-sm bi bi-x-lg"></button>
+</div>
+
+<mat-dialog-content>
+  <mat-tab-group >
+    <mat-tab label="Álltalános adatok">
+      <div style=" padding: 20px">
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%">
+              <mat-label>id</mat-label>
+              <input matInput  type="text"  [(ngModel)]="distance.id" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Állapot</mat-label>
+              <input  matInput  type="text" [(ngModel)]="distance.enabled" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Létrehozás dátuma</mat-label>
+              <input  matInput  type="text" [ngModel]="generalUtils.getLocaleDateTimeString(distance.inserted)" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Utolsó frissítás dátuma</mat-label>
+              <input  matInput  type="text" [ngModel]="generalUtils.getLocaleDateTimeString(distance.updated)" disabled>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Megnevezés</mat-label>
+              <input  matInput  type="text" [(ngModel)]="distance.name">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Hossz</mat-label>
+              <input  matInput  type="number" [(ngModel)]="distance.length">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-6">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Logo URL</mat-label>
+              <input  matInput  type="text" [(ngModel)]="distance.logoUrl">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Rajt helye</mat-label>
+              <input  matInput  type="text" [(ngModel)]="distance.startPlace">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Rajt -tól</mat-label>
+              <input  matInput  type="datetime-local"  [ngModel] ="distance.startTimeFrom | date:'yyyy-MM-dd HH:mm'" (ngModelChange)="distance.startTimeFrom = $event">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Rajt -ig</mat-label>
+              <input  matInput  type="datetime-local"  [ngModel] ="distance.startTimeTo | date:'yyyy-MM-dd HH:mm'" (ngModelChange)="distance.startTimeTo = $event">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Cél helye</mat-label>
+              <input  matInput  type="text" [(ngModel)]="distance.finishPlace">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Szintidő</mat-label>
+              <input  matInput  type="time"  [ngModel] ="distance.timeLimit | date:'yyyy-MM-dd HH:mm'" (ngModelChange)="distance.timeLimit = $event">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Nevezési díj</mat-label>
+              <input  matInput  type="number" [(ngModel)]="distance.price">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Nevezési díj</mat-label>
+              <input  matInput  type="number" [(ngModel)]="distance.maxNumberOfCompetitor">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%">
+              <mat-label>Leírás</mat-label>
+              <textarea matInput maxlength="1000" style="height: auto;" rows="5"  [(ngModel)]="distance.description"></textarea>
+              <mat-hint align="end">{{distance.description ? distance.description.length : 0}} / 1000</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>GPX URL</mat-label>
+              <input  matInput  type="text" [(ngModel)]="distance.gpxURL">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Leírás URL</mat-label>
+              <input  matInput  type="text" [(ngModel)]="distance.descriptionURL">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Térkép URL</mat-label>
+              <input  matInput  type="text" [(ngModel)]="distance.mapURL">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%">
+              <mat-label>Ellátás</mat-label>
+              <textarea matInput maxlength="255" style="height: auto;" rows="5"  [(ngModel)]="distance.receiptOfItinerary"></textarea>
+              <mat-hint align="end">{{distance.receiptOfItinerary ? distance.receiptOfItinerary.length : 0}} / 255</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%">
+              <mat-label>Megközelítés</mat-label>
+              <textarea matInput maxlength="255" style="height: auto;" rows="5"  [(ngModel)]="distance.approach"></textarea>
+              <mat-hint align="end">{{distance.approach ? distance.approach.length : 0}} / 255</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Itiner átvétel helye</mat-label>
+              <input  matInput  type="text" [(ngModel)]="distance.receiptOfItinerary">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Itiner átvétel ideje (tól)</mat-label>
+              <input  matInput  type="datetime-local"  [ngModel] ="distance.receiptOfItineraryFrom | date:'yyyy-MM-dd HH:mm'" (ngModelChange)="distance.receiptOfItineraryFrom = $event">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Itiner átvétel ideje (ig)</mat-label>
+              <input  matInput  type="datetime-local"  [ngModel] ="distance.receiptOfItineraryTo | date:'yyyy-MM-dd HH:mm'" (ngModelChange)="distance.receiptOfItineraryTo = $event">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%">
+              <mat-label>Időmérés módja</mat-label>
+              <textarea matInput maxlength="255" style="height: auto;" rows="5"  [(ngModel)]="distance.timekeepingType"></textarea>
+              <mat-hint align="end">{{distance.timekeepingType ? distance.timekeepingType.length : 0}} / 255</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%">
+              <mat-label>Ellátás</mat-label>
+              <textarea matInput maxlength="255" style="height: auto;" rows="5"  [(ngModel)]="distance.services"></textarea>
+              <mat-hint align="end">{{distance.services ? distance.services.length : 0}} / 255</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Útvonal adatok">
+      <div style=" padding: 20px">
+
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  </mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-dialog-close type="button" class="btn btn-outline-danger btn-sm" style="margin-right: 20px">Elvetés</button>
+  <button type="button" class="btn btn-outline-primary btn-sm"  (click)="save()" >Mentés</button>
+
+</mat-dialog-actions>

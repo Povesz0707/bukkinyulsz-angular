@@ -1,22 +1,90 @@
-.navbar-inverse .navbar-collapse,
-.navbar-inverse .navbar-form {
+
+::ng-deep  .mat-row, tr.mat-footer-row {
+  height: 10px !important;
+}
+
+::ng-deep .info-snackbar {
+  --mat-mdc-snack-bar-button-color: #000000;
+  --mdc-snackbar-container-color: #ffffff;
+  --mdc-snackbar-supporting-text-color: rgba(0, 0, 0, 0.87);
+}
+
+::ng-deep .warn-snackbar {
+  --mat-mdc-snack-bar-button-color: #ffffff;
+  --mdc-snackbar-container-color: #ff8000;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+}
+
+::ng-deep .error-snackbar {
+  --mat-mdc-snack-bar-button-color:  #ffffff;
+  --mdc-snackbar-container-color: #ff0000;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+}
+
+
+/*
+::ng-deep.mdc-data-table__header-cell {
+  text-align: center !important;
+}
+
+::ng-deep.mdc-data-table__row:last-child .mdc-data-table__cell {
+  text-align-last: center !important;
+}*/
+
+
+::ng-deep.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  height: auto
+}
+
+::ng-deep.mat-mdc-form-field {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+/*
+nem jelent meg emiatta a hint
+::ng-deep.mat-mdc-form-field-subscript-wrapper{
+  display: none;
+}
+*/
+
+::ng-deep.mat-mdc-dialog-container .mdc-dialog__content{
+  height: 100%;
+}
+
+::ng-deep.mat-mdc-form-field-infix {
+  min-height: unset;
+}
+
+::ng-deep.mat-mdc-tab-body.mat-mdc-tab-body-active {
+  overflow-y: hidden!important;
+
+}
+
+
+.navbar-collapse{
+  text-align: -webkit-center;
+}
+
+.navbar , .navbar .navbar-form {
   display: flex !important;
   justify-content: center;
 }
 
-.navbar-inverse .navbar-nav>.open>a,
-.navbar-inverse .navbar-nav>.open>a:focus,
-.navbar-inverse .navbar-nav>.open>a:hover {
+.navbar .navbar-nav>.open>a,
+.navbar .navbar-nav>.open>a:focus,
+.navbar .navbar-nav>.open>a:hover {
   background-color: unset !important;
 }
-.navbar-inverse .navbar-nav>.active>a {
+.navbar .navbar-nav>.active>a {
   font-weight: bolder !important;
   background-color: unset !important;
   color: #4cb33ddb !important;
   text-decoration: underline !important;
 }
 
-.navbar-inverse .navbar-nav>.active>a:hover {
+.navbar .navbar-nav>.active>a:hover {
   font-weight: bolder !important;
   background-color: unset !important;
   color: #4cb33ddb !important;
@@ -26,11 +94,11 @@ label{
   white-space: pre-wrap !important;
 }
 
-.navbar-inverse .navbar-nav>li>a {
+.navbar .navbar-nav>li>a {
   color: #000000 !important;
 }
 
-.navbar-inverse .navbar-nav>li>a:hover {
+.navbar .navbar-nav>li>a:hover {
   background-color: unset !important;
   color: #000 !important;
   border-radius: 45px !important;
@@ -52,3 +120,4 @@ label{
   display: block;
   margin-top: 0; /* remove the gap so it doesn't close */
 }
+

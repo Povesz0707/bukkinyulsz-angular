@@ -3,6 +3,7 @@ import {SubSection} from "../subSection-model/subSection.model";
 import {Reward} from "../reward-model/reward.model";
 
 export class Distance extends BaseModel{
+  active?:boolean
   name?:string
   length?:number
   logoUrl?:string
@@ -14,8 +15,10 @@ export class Distance extends BaseModel{
   startTimeTo?:Date
   timeLimit?:Date
   price?:number
+  maxNumberOfCompetitor?:number
   description?:string
   gpxURL?:string
+  approach?:string
   receiptOfItinerary?:string
   receiptOfItineraryFrom?:Date
   receiptOfItineraryTo?:Date

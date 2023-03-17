@@ -16,6 +16,12 @@ export class GeneralUtils{
   constructor(private dialog: MatDialog) {
   }
 
+  getBooleanToClass(b?:boolean){
+    if(b == true) return ' bi bi-check2 text-success font-weight-bold '
+    else if(b == false) return ' bi bi-x-lg text-danger font-weight-bold '
+    return ' bi bi-dash text-secondary font-weight-bold '
+  }
+
   openDialog(dialogComponent: any, data: any){
     return this.dialog.open(dialogComponent, {data: data, width: '100%'});
   }
