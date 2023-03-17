@@ -1,0 +1,9 @@
+::ng-deep.mat-grid-tile-content{
+  height: unset!important;;
+  bottom: unset!important;
+}
+
+
+.unsetBorderTableRow{
+  border: unset;
+}

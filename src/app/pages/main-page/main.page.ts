@@ -1,4 +1,8 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {GlobalService} from "../../services/global.service";
+import {Distance} from "../../model/distance-model/distance";
+import {GeneralUtils} from "../../utils/general.utils";
+import {DistanceView} from "../distances/distance-view/distance.view";
 
 @Component({
   templateUrl:'main.page.html',
@@ -10,8 +14,20 @@ export class MainPage implements OnInit{
   hoursLeft?: number
   minutesLeft?:number
   hasRemainingTime?:boolean
+  distanceList: Distance[] = [];
   ngOnInit(): void {
+    this.getDistancesList()
     this.getRegistrationRemainingTime()
+  }
+  getDistancesList(){
+    this.globalService.distanceService.list().subscribe(value => {
+      this.distanceList = value;
+      console.log(value.length)
+    })
+  }
+
+
+  constructor(private globalService : GlobalService, public generalUtils: GeneralUtils) {
   }
 
   getRegistrationRemainingTime(){
@@ -34,7 +50,7 @@ export class MainPage implements OnInit{
     }, 1000);
   }
 
-  openTavDialog(s: string) {
-
+  openTavDialog(distance: Distance) {
+    this.generalUtils.openDialog100Percent(DistanceView, distance)
   }
 }

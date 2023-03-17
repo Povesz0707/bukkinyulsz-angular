@@ -1,0 +1,115 @@
+<h1 mat-dialog-title>{{distance.length}} - {{distance.name}}</h1>
+<div mat-dialog-content style="font-size: 14px">
+  <div class="row">
+    <div class="col-6" style="align-self: center;">
+      <table class="table table-borderless table-sm ">
+        <tbody>
+        <tr *ngIf="distance.length">
+          <td><b>Hossz</b></td><td>{{generalUtils.sumDistance(distance.subSections)}} km</td>
+        </tr>
+        <tr>
+          <td><b>Összes szintemelkedés</b></td><td>{{generalUtils.sumAllElevation(distance.subSections)}} m</td>
+        </tr>
+        <tr *ngIf="distance.startPlace">
+          <td><b>Rajt helyszíne</b></td><td>{{distance.startPlace}}</td>
+        </tr>
+        <tr *ngIf="distance.finishPlace">
+          <td><b>Cél helyszíne</b></td><td>{{distance.finishPlace}}</td>
+        </tr>
+        <tr *ngIf="distance.startTimeFrom || distance.startTimeTo">
+          <td><b>Rajtidő</b></td><td>{{distance.startTimeFrom}} - {{distance.startTimeTo}}</td>
+        </tr>
+        <tr *ngIf="distance.timeLimit">
+          <td><b>Szintidő</b></td><td>{{distance.timeLimit}} óra</td>
+        </tr>
+        <tr *ngIf="distance.rewards">
+          <td><b>Díjazás</b></td><td>{{distance.rewards}}</td>
+        </tr>
+        <tr *ngIf="distance.price">
+          <td><b>Nevezési díj</b></td><td>{{distance.price}} Ft</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="distance.description" class="col-6" style="align-self: center;">
+      <b>Leírás</b>
+      <br>
+      <label>{{distance.description}}</label>
+    </div>
+  </div>
+  <div class="row" *ngIf="distance.subSections">
+    <div class="col-12">
+      <button style="width: 100%" type="button" class="btn btn-outline-success btn-sm bi bi-person-add"> Nevezek a Túrára</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="distance.gpxURL || distance.descriptionURL || distance.mapURL">
+    <div class="col-12">
+      <b>Letölthető tartalmak</b><br>
+      <div>
+        <button *ngIf="distance.gpxURL" style="margin-right: 10px" type="button" (click)="redirectToDownload(distance.gpxURL)" class="btn btn-outline-success bi bi-download btn-sm"> GPX Letöltése</button>
+        <button *ngIf="distance.descriptionURL" style="margin-right: 10px" type="button" (click)="redirectToDownload(distance.descriptionURL)" class="btn btn-outline-success bi bi-download btn-sm"> Térkép Letöltése</button>
+        <button *ngIf="distance.mapURL" style="margin-right: 10px" type="button" (click)="redirectToDownload(distance.mapURL)" class="btn btn-outline-success bi bi-download btn-sm"> Útvonalleírás Letöltése</button>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="distance.receiptOfItineraryFrom || distance.receiptOfItineraryTo || distance.receiptOfItinerary">
+    <div class="col-12">
+      <b>Túrafüzet átvétel</b><br>
+      <label *ngIf="distance.receiptOfItineraryFrom || distance.receiptOfItineraryTo">{{generalUtils.getLocaleDateString(distance.receiptOfItineraryFrom)}} ({{generalUtils.getDayName(distance.receiptOfItineraryFrom)}}) {{generalUtils.getLocaleTimeHourMinString(distance.receiptOfItineraryFrom)}} - {{generalUtils.getLocaleTimeHourMinString(distance.receiptOfItineraryTo)}}</label>
+      <br *ngIf="distance.receiptOfItineraryFrom || distance.receiptOfItineraryTo">
+      <label *ngIf="distance.receiptOfItinerary">Átvétel helye:{{'\n'+distance.receiptOfItinerary}}</label>
+    </div>
+  </div>
+  <div class="row" *ngIf="distance.timekeepingType">
+    <div class="col-12">
+      <b>Időmérés módja</b>
+      <label *ngIf="distance.timekeepingType">{{distance.timekeepingType}}</label><br>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="distance.subSections">
+    <div class="col-12">
+      <b>Útvonal</b>
+      <ul style="list-style-image: url('assets/icons/chevron-compact-right.svg');     display: flex;">
+        <li style="margin-left: 30px;" *ngFor="let section of distance.subSections">{{section.checkpointFrom ? section.checkpointFrom.name : ''}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row" *ngIf="distance.subSections">
+    <div class="col-12">
+      <b>Útvonal részletes táblázat</b>
+      <table class="table table-sm">
+        <thead>
+        <tr>
+          <th colspan="2"></th>
+          <th >Résztáv (km)</th>
+          <th >Összesített Táv (km)</th>
+          <th >Részszint (m)</th>
+          <th >Összesített Szint (m)</th>
+          <th >Jelzések</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let section of distance.subSections">
+          <td>{{section?.checkpointFrom?.name}}</td>
+          <td>{{section?.checkpointTo?.name}}</td>
+          <td>{{section?.subLength}}</td>
+          <td>{{generalUtils.getSublistDistanceSum(distance.subSections, section)}}</td>
+          <td>{{section?.subElevationGain}}</td>
+          <td>{{generalUtils.getSublistElevationSum(distance.subSections, section)}}</td>
+          <td>
+            <a class="tavicon" *ngFor="let marking of section.markings" >
+              <img *ngIf="marking.marking" [src]="marking.marking.url" matTooltipPosition="above" [matTooltip]="marking.marking.name ? marking.marking.name : ''" style="margin-right: 5px; box-shadow: 2px 2px 2px 0px #00000033;">
+            </a>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+</div>
+<div mat-dialog-actions>
+</div>

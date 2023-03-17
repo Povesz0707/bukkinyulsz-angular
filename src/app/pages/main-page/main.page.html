@@ -32,19 +32,9 @@
       <div class="bottom-right">
         <div >
           <div style="display: flex; padding-top: 50px;">
-            <a class="tavicon" href="https://bukkinyulsz.hu/#/leiras/hu/10" data-target="#modalCenter10km" data-toggle="modal" >
-              <img (click)="openTavDialog('10')"  style="height: 100px; max-width: 100px;" src="./assets/images/logo/logo10.png">
+            <a class="tavicon" *ngFor="let distance of distanceList" >
+              <img (click)="openTavDialog(distance)" style="height: 100px; max-width: 100px;" [src]="distance.logoUrl">
             </a>
-            <a class="tavicon" href="https://bukkinyulsz.hu/#/leiras/hu/13" >
-              <img style="height: 100px; max-width: 100px;" src="./assets/images/logo/logo13.png" data-toggle="modal" data-target="#myModal">
-            </a>
-            <a class="tavicon" href="https://bukkinyulsz.hu/#/leiras/hu/26"><img
-              style="height: 100px; max-width: 100px;" src="./assets/images/logo/logo26.png"></a>
-            <a class="tavicon" href="https://bukkinyulsz.hu/#/leiras/hu/35"><img
-              style="height: 100px; max-width: 100px;" src="./assets/images/logo/logo35.png"></a>
-            <a class="tavicon" href="https://bukkinyulsz.hu/#/leiras/hu/60"><img
-              style="height: 100px; max-width: 100px;" src="./assets/images/logo/logo60.png"></a>
-
           </div>
         </div>
       </div>
@@ -235,18 +225,4 @@
 
 </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="modalCenter10km" role="dialog" style="width: 100%;     padding: 10px;">
-  <div class="modal-dialog modal-dialog-scrollable" style="max-width: unset;width: 100%;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title" id="exampleModalLabel">10 km — Nyuszifül</h1>
-      </div>
-      <div class="modal-body">
-        <distance-10km></distance-10km>
-      </div>
-    </div>
-  </div>
-</div>
 
