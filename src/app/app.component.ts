@@ -20,15 +20,18 @@ export class AppComponent implements OnInit{
   getDistancesList(){
     this.distanceList = []
     this.globalService.tourEventService.getLatestActive().subscribe(value => {
-      value.tourEventDistances?.forEach(value1 => {
-        if(value1.distance){
-          this.distanceList.push(value1.distance)
-        }
-      })
+      if(value){
+        value.tourEventDistances?.forEach(value1 => {
+          if(value1.distance && value1.distance.id){
+            this.distanceList.push(value1.distance)
+          }
+        })
+      }
+
     })
   }
   openTavDialog(distance: Distance) {
-    this.generalUtils.openDialog100Percent(DistanceView, distance)
+    this.generalUtils.openDialog100vw100vh(DistanceView, distance)
   }
 
   ngOnInit(): void {

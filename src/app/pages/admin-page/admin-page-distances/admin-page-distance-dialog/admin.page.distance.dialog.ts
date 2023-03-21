@@ -3,9 +3,12 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Distance} from "../../../../model/distance-model/distance";
 import {GlobalService} from "../../../../services/global.service";
 import {GeneralUtils} from "../../../../utils/general.utils";
+import {TourEvent} from "../../../../model/tourEvent-model/tourEvent.model";
+import {TourEventDistance} from "../../../../model/tourEvent-distance-model/tourEvent.distance.model";
 
 export interface AdminPageDistanceDialogData{
   item:Distance,
+  tourEvent:TourEvent,
   openingMode?:string
 }
 @Component({
@@ -34,7 +37,11 @@ export class AdminPageDistanceDialog implements OnInit{
 
   save() {
     if(this.data.openingMode == GeneralUtils.DIALOG_OPENING_TYPE_NEW){
-      this.globalService.distanceService.add(this.distance).subscribe(value => {
+      var newItem: TourEventDistance = {
+        distance: this.distance,
+        tourEvent: this.data.tourEvent
+      }
+      this.globalService.tourEventDistanceService.add(newItem).subscribe(value => {
         this.dialogRef.close();
       })
     }

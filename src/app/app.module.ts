@@ -28,6 +28,31 @@ import {
   AdminPageEventDialog
 } from "./pages/admin-page/admin-page-event/admin-page-event-dialog/admin.page.event.dialog";
 import {AdminPageEventList} from "./pages/admin-page/admin-page-event/admin-page-event-list/admin.page.event.list";
+import {ConfirmDialog} from "./dialogs/confirm-dialog/confirm.dialog";
+import {MatSelectModule} from "@angular/material/select";
+import {AdminPageDistance} from "./pages/admin-page/admin-page-distances/admin-page-distance/admin.page.distance";
+import {MatCardModule} from "@angular/material/card";
+import {AdminPageEvent} from "./pages/admin-page/admin-page-event/admin-page-event/admin.page.event";
+import {MAT_DATE_LOCALE} from "@angular/material/core";
+import {
+  AdminPageSubSectionList
+} from "./pages/admin-page/admin-page-subSection/admin-page-subSection-list/admin.page.subSection.list";
+import {
+  AdminPageSubSectionDialog
+} from "./pages/admin-page/admin-page-subSection/admin-page-subSection-dialog/admin.page.subSection.dialog";
+import {
+  AdminPageSubSection
+} from "./pages/admin-page/admin-page-subSection/admin-page-subSection/admin.page.subSection";
+import {
+  AdminPageCheckpoint
+} from "./pages/admin-page/admin-page-checkpoint/admin-page-checkpoint/admin.page.checkpoint";
+import {
+  AdminPageCheckpointDialog
+} from "./pages/admin-page/admin-page-checkpoint/admin-page-checkpoint-dialog/admin.page.checkpoint.dialog";
+import {
+  AdminPageCheckpointList
+} from "./pages/admin-page/admin-page-checkpoint/admin-page-checkpoint-list/admin.page.checkpoint.list";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [
@@ -35,10 +60,19 @@ import {AdminPageEventList} from "./pages/admin-page/admin-page-event/admin-page
     MainPage,
     Distance10km,
     DistanceView,
+    ConfirmDialog,
+    AdminPageDistance,
     AdminPageDistancesList,
     AdminPageDistanceDialog,
+    AdminPageEvent,
     AdminPageEventList,
     AdminPageEventDialog,
+    AdminPageSubSection,
+    AdminPageSubSectionList,
+    AdminPageSubSectionDialog,
+    AdminPageCheckpoint,
+    AdminPageCheckpointDialog,
+    AdminPageCheckpointList,
     AdminPageLogin
   ],
   imports: [
@@ -54,10 +88,15 @@ import {AdminPageEventList} from "./pages/admin-page/admin-page-event/admin-page
     MatTableModule,
     MatSortModule,
     MatCheckboxModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSelectModule,
+    MatCardModule,
+    MatSlideToggleModule
 
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'hu-HU'},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

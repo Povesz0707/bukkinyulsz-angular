@@ -3,7 +3,6 @@ import {SubSection} from "../subSection-model/subSection.model";
 import {Reward} from "../reward-model/reward.model";
 
 export class Distance extends BaseModel{
-  active?:boolean
   name?:string
   length?:number
   logoUrl?:string

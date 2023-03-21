@@ -1,0 +1,61 @@
+<div mat-dialog-title style="width: 100%;display: flex;padding: 9px 24px 9px;">
+  <label style="width: -webkit-fill-available;">{{tileText}}</label>
+  <button type="button" mat-dialog-close class="btn btn btn-light btn-sm bi bi-x-lg"></button>
+</div>
+<mat-dialog-content>
+  <mat-tab-group >
+    <mat-tab label="Álltalános adatok">
+      <div style=" padding: 20px">
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%">
+              <mat-label>id</mat-label>
+              <input matInput  type="text"  [(ngModel)]="subSection.id" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Állapot</mat-label>
+              <input  matInput  type="text" [(ngModel)]="subSection.enabled" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Létrehozás dátuma</mat-label>
+              <input  matInput  type="text" [ngModel]="generalUtils.getLocaleDateTimeString(subSection.inserted)" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Utolsó frissítás dátuma</mat-label>
+              <input  matInput  type="text" [ngModel]="generalUtils.getLocaleDateTimeString(subSection.updated)" disabled>
+            </mat-form-field>
+          </div>
+        </div>
+        <div *ngIf="availableCheckpoints && availableCheckpoints.length > 0" class="row">
+          <div class="col-sm-3">
+              <mat-form-field floatLabel="always" appearance="outline" style="width: 100%">
+                <mat-label>Ellenörzőpont (-tól)</mat-label>
+                <mat-select [(ngModel)]="subSection.checkpointFrom">
+                  <mat-option *ngFor="let checkpointFrom of availableCheckpoints" [value]="checkpointFrom" >{{checkpointFrom.id}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
+          <div *ngIf="availableCheckpoints" class="col-sm-3">
+            <mat-form-field floatLabel="always" appearance="outline" style="width: 100%">
+              <mat-label>Ellenörzőpont (-ig)</mat-label>
+              <mat-select [ngModel]="subSection.checkpointTo" >
+                <mat-option *ngFor="let checkpointTo of availableCheckpoints" [value]="checkpointTo" >{{checkpointTo.id}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <mat-dialog-actions align="end">
+        <button mat-dialog-close type="button" class="btn btn-outline-danger btn-sm" style="margin-right: 20px">Elvetés</button>
+        <button type="button" class="btn btn-outline-primary btn-sm"  (click)="save()" >Mentés</button>
+
+      </mat-dialog-actions>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>

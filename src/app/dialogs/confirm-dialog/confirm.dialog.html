@@ -1,0 +1,12 @@
+<div mat-dialog-title style="width: 100%;display: flex;padding: 9px 24px 9px;">
+  <label style="width: -webkit-fill-available;">{{data.title}}</label>
+  <button type="button" mat-dialog-close class="btn btn btn-light btn-sm bi bi-x-lg"></button>
+</div>
+<mat-dialog-content>
+  <li>{{data.message}}</li>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-dialog-close type="button" class="btn btn-outline-danger btn-sm" style="margin-right: 20px">Mégsem</button>
+  <button type="button" class="btn btn-outline-primary btn-sm"  (click)="ok()" >Ok</button>
+
+</mat-dialog-actions>

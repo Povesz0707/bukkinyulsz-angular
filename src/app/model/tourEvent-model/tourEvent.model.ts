@@ -3,8 +3,10 @@ import {BaseModel} from "../base-model/base.model";
 
 export class TourEvent extends BaseModel{
   name?:string
-  applicationDeadline?:Date
+  applicationFrom?:Date
+  applicationTo?:Date
   dateOfEvent?:Date
+  placeOfEvent?:string
   active?:boolean
   tourEventDistances?:TourEventDistance[]
 }

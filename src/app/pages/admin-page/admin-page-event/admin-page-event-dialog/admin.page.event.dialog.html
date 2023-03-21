@@ -1,5 +1,83 @@
-<div style="padding-top: 100px; padding-bottom: 50px; width: 100%" align="center">
-  <div style="max-width: 95%">
-admin.page.event.dialog
-  </div>
+<div mat-dialog-title style="width: 100%;display: flex;padding: 9px 24px 9px;">
+  <label style="width: -webkit-fill-available;">{{tileText}}</label>
+  <button type="button" mat-dialog-close class="btn btn btn-light btn-sm bi bi-x-lg"></button>
 </div>
+<mat-dialog-content>
+  <mat-tab-group >
+    <mat-tab  label="Álltalános adatok">
+      <div style=" padding: 20px">
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%">
+              <mat-label>id</mat-label>
+              <input matInput  type="text"  [(ngModel)]="tourEvent.id" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Állapot</mat-label>
+              <input  matInput  type="text" [(ngModel)]="tourEvent.enabled" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Létrehozás dátuma</mat-label>
+              <input  matInput  type="text" [ngModel]="generalUtils.getLocaleDateTimeString(tourEvent.inserted)" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Utolsó frissítás dátuma</mat-label>
+              <input  matInput  type="text" [ngModel]="generalUtils.getLocaleDateTimeString(tourEvent.updated)" disabled>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-6">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Megnevezés</mat-label>
+              <input  matInput  type="text" [(ngModel)]="tourEvent.name">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Megrendezés dátuma</mat-label>
+              <input  matInput  type="date"  [ngModel] ="tourEvent.dateOfEvent | date:'yyyy-MM-dd'" (ngModelChange)="tourEvent.dateOfEvent = $event">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Megrendezés helye</mat-label>
+              <input  matInput  type="text" [(ngModel)]="tourEvent.placeOfEvent">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Előnevezés (-tól)</mat-label>
+              <input  matInput  type="datetime-local" [ngModel] ="tourEvent.applicationFrom | date:'yyyy-MM-dd HH:mm'" (ngModelChange)="tourEvent.applicationFrom = $event">
+            </mat-form-field>
+          </div>
+          <input type = "datetime" name = "newinput" />
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Előnevezés (-ig)</mat-label>
+              <input  matInput  type="datetime-local"  [ngModel] ="tourEvent.applicationTo | date:'yyyy-MM-dd HH:mm'" (ngModelChange)="tourEvent.applicationTo = $event">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab  label="Táv adatok">
+      <admin-page-distances-list *ngIf="tourEvent.id" [inputTourEvent]="tourEvent"></admin-page-distances-list>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-dialog-close type="button" class="btn btn-outline-danger btn-sm" style="margin-right: 20px">Elvetés</button>
+  <button type="button" class="btn btn-outline-primary btn-sm"  (click)="save()" >Mentés</button>
+</mat-dialog-actions>

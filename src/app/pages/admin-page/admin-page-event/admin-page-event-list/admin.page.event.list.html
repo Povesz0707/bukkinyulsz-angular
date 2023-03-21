@@ -1,6 +1,80 @@
+  <div>
+    <div style="width: 100%;text-align-last: start;">
+        <button class="btn btn-outline-success dropdown dropdown-toggle btn-sm" type="button" data-toggle="dropdown" >Menü</button>
+        <div class="dropdown dropdown-menu" >
+          <button class="dropdown-item btn-sm" (click)="addNew()"> Új esemény hozzáaadása</button>
+          <div *ngIf="selectedTourEventData.selected.length > 0">
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item btn-sm" (click)="changeActiveStatus(true)"> Összes kiválasztott aktiválása ({{selectedTourEventData.selected.length}} db)</button>
+            <button class="dropdown-item btn-sm" (click)="changeActiveStatus(false)"> Összes kiválasztott deaktiválása ({{selectedTourEventData.selected.length}} db)</button>
+          </div>
+        </div>
+      <input type="text" (keyup)="doFilter($event)" class="form-control form-control-sm"  placeholder="Keresés">
+    </div>
+    <table mat-table [dataSource]="tourEventDataSource" matSort  class="mat-elevation-z1" style="width: 80%">
+      <ng-container matColumnDef="select" >
+        <th mat-header-cell *matHeaderCellDef  style="width: 50px">
+          <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                        [checked]="selectedTourEventData.hasValue() && isAllSelected()"
+                        [indeterminate]="selectedTourEventData.hasValue() && !isAllSelected()"
+                        color="primary">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selectedTourEventData.toggle(row) : null"
+                        [checked]="selectedTourEventData.isSelected(row)"
+                        color="primary">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="id" >
+        <th mat-header-cell mat-sort-header *matHeaderCellDef style="width: 50px">#</th>
+        <td mat-cell *matCellDef="let item"> {{item.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="active" >
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Aktív</th>
+        <td mat-cell *matCellDef="let item">
+          <i style="-webkit-text-stroke-width: thick;" [matTooltip]="generalUtils.getBooleanToTooltip(item.active)" [class]="generalUtils.getBooleanToClass(item.active)"></i>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name" >
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Név</th>
+        <td mat-cell *matCellDef="let item"> {{item.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="applicationFrom" >
+        <th mat-header-cell mat-sort-header *matHeaderCellDef >Jelentkezési határidő (-tól)</th>
+        <td mat-cell *matCellDef="let item"> {{generalUtils.getLocaleDateTimeString(item.applicationFrom)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="applicationTo" >
+        <th mat-header-cell mat-sort-header *matHeaderCellDef >Jelentkezési határidő (-ig)</th>
+        <td mat-cell *matCellDef="let item"> {{generalUtils.getLocaleDateTimeString(item.applicationTo)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dateOfEvent" >
+        <th mat-header-cell mat-sort-header *matHeaderCellDef >Megrendezés dátuma</th>
+        <td mat-cell *matCellDef="let item"> {{generalUtils.getLocaleDateString(item.dateOfEvent)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="placeOfEvent" >
+        <th mat-header-cell mat-sort-header *matHeaderCellDef >Megrendezés helye</th>
+        <td mat-cell *matCellDef="let item"> {{item.placeOfEvent}} </td>
+      </ng-container>
+      <ng-container matColumnDef="tourEventDistances" >
+        <th mat-header-cell mat-sort-header *matHeaderCellDef >Aktív távok száma</th>
+        <td mat-cell *matCellDef="let item"> {{item.tourEventDistances != undefined ? item.tourEventDistances.length : 0}} </td>
+      </ng-container>
 
-<div style="padding-top: 100px; padding-bottom: 50px; width: 100%" align="center">
-  <div style="max-width: 95%">
-    admin.page.event.list
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let item">
+          <div style="    display: flex;justify-content: flex-end;">
+            <button type="button" class="btn btn-outline-primary btn-sm" style="margin-right: 5px" (click)="openEdit(item)" ><i class="bi bi-pencil"></i></button>
+            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteItem(item)"><i class="bi bi-trash3"></i></button>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="tourEventDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: tourEventDisplayedColumns;" (select)="selectedTourEventData.toggle(row)"></tr>
+    </table>
+
   </div>
-</div>
+

@@ -22,10 +22,21 @@ export class GeneralUtils{
     return ' bi bi-dash text-secondary font-weight-bold '
   }
 
-  openDialog(dialogComponent: any, data: any){
+  getBooleanToTooltip(b?:boolean){
+    if(b == true) return 'Igen'
+    else if(b == false) return 'Nem'
+    return 'Nincs meghatározva'
+  }
+
+  openDialog100w(dialogComponent: any, data: any){
     return this.dialog.open(dialogComponent, {data: data, width: '100%'});
   }
-  openDialog100Percent(dialog: any, data: any){
+
+  openSimpleDialog(dialogComponent: any, data: any){
+    return this.dialog.open(dialogComponent, {data: data});
+  }
+
+  openDialog100vw100vh(dialog: any, data: any){
     return this.dialog.open(dialog, {data: data, width: '100vw', maxWidth: '100vw', height: '100vh',maxHeight:'80vh', panelClass:'warning-dialog'});
   }
 
@@ -75,6 +86,11 @@ export class GeneralUtils{
       hour: '2-digit',
       minute:'2-digit'
     })
+  }
+
+  getYearString(d?: Date):any{
+    if(d == undefined) return ''
+    return new Date(d).getFullYear()
   }
   getLocaleDateString(d?: Date):string{
     if(d == undefined) return ''

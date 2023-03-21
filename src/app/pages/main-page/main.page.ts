@@ -30,7 +30,7 @@ export class MainPage implements OnInit{
             this.distanceList.push(value1.distance)
           }
         })
-      this.getRegistrationRemainingTime(value.applicationDeadline)
+      this.getRegistrationRemainingTime(value.applicationTo)
     })
   }
 
@@ -60,6 +60,6 @@ export class MainPage implements OnInit{
   }
 
   openTavDialog(distance: Distance) {
-    this.generalUtils.openDialog100Percent(DistanceView, distance)
+    this.generalUtils.openDialog100vw100vh(DistanceView, distance)
   }
 }

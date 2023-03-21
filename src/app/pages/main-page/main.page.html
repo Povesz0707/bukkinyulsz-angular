@@ -25,7 +25,7 @@
             <a style="color: #fff; font-size: 20px;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" href="https://bukkinyulsz.hu/event/tt2022/nevezes" target="_blank">Leadom a nevezésem <i class="bi bi-arrow-right-circle"></i></a>
           </div>
           <div *ngIf="hasRemainingTime == false" style="background-color: #00000081;">
-            <a style="color: #fff; font-size: 20px;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" >Sajnáljuk, de csak {{generalUtils.getLocaleDateString(tourEvent.applicationDeadline)}} -ig lehetett online előnevezni! </a>
+            <a style="color: #fff; font-size: 20px;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" >Sajnáljuk, de csak {{generalUtils.getLocaleDateString(tourEvent.applicationTo)}} -ig lehetett online előnevezni! </a>
           </div>
         </div>
       </div>

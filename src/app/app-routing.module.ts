@@ -9,6 +9,14 @@ import {
 import {AdminPageEventList} from "./pages/admin-page/admin-page-event/admin-page-event-list/admin.page.event.list";
 import {Distance} from "./model/distance-model/distance";
 import {DistanceView} from "./pages/distances/distance-view/distance.view";
+import {AdminPageDistance} from "./pages/admin-page/admin-page-distances/admin-page-distance/admin.page.distance";
+import {AdminPageEvent} from "./pages/admin-page/admin-page-event/admin-page-event/admin.page.event";
+import {
+  AdminPageSubSection
+} from "./pages/admin-page/admin-page-subSection/admin-page-subSection/admin.page.subSection";
+import {
+  AdminPageCheckpoint
+} from "./pages/admin-page/admin-page-checkpoint/admin-page-checkpoint/admin.page.checkpoint";
 
 
 
@@ -17,9 +25,11 @@ const routes: Routes = [
   {path: 'home', component: MainPage, pathMatch: 'prefix'},
   {path: 'distance/:id', component: DistanceView, pathMatch: 'full'},
   {path: 'admin-page/login', component: AdminPageLogin, pathMatch:'full'},
-  {path: 'admin-page/distances', component: AdminPageDistancesList, pathMatch:'full'},
+  {path: 'admin-page/distances', component: AdminPageDistance, pathMatch:'full'},
   {path: 'admin-page/login', component: AdminPageLogin, pathMatch:'full'},
-  {path: 'admin-page/event', component: AdminPageEventList, pathMatch:'full'},
+  {path: 'admin-page/event', component: AdminPageEvent, pathMatch:'full'},
+  {path: 'admin-page/subSection', component: AdminPageSubSection, pathMatch:'full'},
+  {path: 'admin-page/checkpoint', component: AdminPageCheckpoint, pathMatch:'full'},
   {path: '**', redirectTo: '404'}
 
 ];

@@ -1,11 +1,25 @@
-<div style="padding-top: 100px; padding-bottom: 50px; width: 100%" align="center">
-<div style="max-width: 95%">
+<div>
   <div style="width: 100%;text-align-last: start;">
-    <button  type="button" class="btn btn-outline-success bi bi-plus-lg btn-sm" (click)="addNew()"> Új táv hozzáaadása</button>
-      <input type="text" (keyup)="doFilter($event)" class="form-control form-control-sm"  placeholder="Keresés">
+    <mat-form-field floatLabel="always" appearance="outline" *ngIf="inputTourEvent == undefined" style="width: 300px">
+      <mat-label>Kiválasztott esemény</mat-label>
+      <mat-select [(ngModel)]="this.selectedTourEvent"  (selectionChange)="tourEventSelectionChange()">
+        <mat-option *ngFor="let tourEvent of availableTourEvents" [value]="tourEvent" >{{tourEvent.name }} {{generalUtils.getYearString(tourEvent.dateOfEvent)}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-
-  <table mat-table [dataSource]="distancesDataSource" matSort  class="mat-elevation-z1" style="width: 80%">
+  <div *ngIf="selectedTourEvent" style="width: 100%;text-align-last: start;">
+    <button  class="btn btn-outline-success dropdown dropdown-toggle btn-sm" type="button" data-toggle="dropdown" >Menü</button>
+    <div class="dropdown dropdown-menu" >
+      <button class="dropdown-item btn-sm" (click)="addNew()"> Új szakasz hozzáaadása</button>
+      <div *ngIf="selection.selected.length > 0">
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item btn-sm" (click)="changeActiveStatus(true)"> Összes kiválasztott aktiválása ({{selection.selected.length}} db)</button>
+        <button class="dropdown-item btn-sm" (click)="changeActiveStatus(false)"> Összes kiválasztott deaktiválása ({{selection.selected.length}} db)</button>
+      </div>
+    </div>
+    <input type="text" (keyup)="doFilter($event)" class="form-control form-control-sm"  placeholder="Keresés">
+  </div>
+  <table mat-table [dataSource]="tourEventDistanceMatTableDataSource" matSort class="mat-elevation-z1" style="width: 80%">
     <ng-container matColumnDef="select" >
       <th mat-header-cell *matHeaderCellDef  style="width: 50px">
         <mat-checkbox (change)="$event ? toggleAllRows() : null"
@@ -24,34 +38,29 @@
     </ng-container>
     <ng-container matColumnDef="id" >
       <th mat-header-cell mat-sort-header *matHeaderCellDef style="width: 50px">#</th>
-      <td mat-cell *matCellDef="let item"> {{item.id}} </td>
-    </ng-container>
-    <ng-container matColumnDef="active" >
-      <th mat-header-cell mat-sort-header *matHeaderCellDef>Aktív</th>
-      <td mat-cell *matCellDef="let item">
-        <i style="-webkit-text-stroke-width: thick;" [class]="generalUtils.getBooleanToClass(item.active)"></i>
-      </td>
+      <td mat-cell *matCellDef="let item"> {{item.distance.id}} </td>
     </ng-container>
     <ng-container matColumnDef="name" >
       <th mat-header-cell mat-sort-header *matHeaderCellDef>Név</th>
-      <td mat-cell *matCellDef="let item"> {{item.name}} </td>
+      <td mat-cell *matCellDef="let item"> {{item.distance?.name}} </td>
     </ng-container>
     <ng-container matColumnDef="length" >
       <th mat-header-cell mat-sort-header *matHeaderCellDef >Hossz</th>
-      <td mat-cell *matCellDef="let item"> {{item.length}} </td>
+      <td mat-cell *matCellDef="let item"> {{item.distance?.length}} </td>
     </ng-container>
 
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let item">
         <div style="    display: flex;justify-content: flex-end;">
-          <button type="button" class="btn btn-outline-primary btn-sm" style="margin-right: 5px" (click)="openEdit(item)" ><i class="bi bi-pencil"></i></button>
-          <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteItem(item)"><i class="bi bi-trash3"></i></button>
+          <button type="button" class="btn btn-outline-primary btn-sm" style="margin-right: 5px" (click)="openEdit(item.distance)" ><i class="bi bi-pencil"></i></button>
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteItem(item.distance)"><i class="bi bi-trash3"></i></button>
         </div>
       </td>
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="distancesDisplayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: distancesDisplayedColumns;" (select)="selection.toggle(row)"></tr>
+    <tr mat-header-row *matHeaderRowDef="distancesDisplayedColumns; sticky:true"></tr>
+    <tr mat-row *matRowDef="let row; columns: distancesDisplayedColumns; " (select)="selection.toggle(row)"></tr>
   </table>
+
 </div>
-</div>
+
