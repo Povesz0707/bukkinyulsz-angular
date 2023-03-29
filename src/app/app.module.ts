@@ -67,6 +67,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ImportantInformationPage} from "./pages/importantInformation-page/importantInformation.page";
+import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import {ImportantInformationPage} from "./pages/importantInformation-page/import
     ImportantInformationPage
   ],
   imports: [
+    LeafletModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     UploaderModule,

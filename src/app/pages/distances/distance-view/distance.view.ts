@@ -1,9 +1,14 @@
-import {Component, Inject, Input, OnInit} from "@angular/core";
+import {Component, ElementRef, Inject, Input, OnInit, ViewChild} from "@angular/core";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {Distance} from "../../../model/distance-model/distance";
 import {GlobalService} from "../../../services/global.service";
 import {GeneralUtils} from "../../../utils/general.utils";
 import {ActivatedRoute} from "@angular/router";
+import GPX from 'leaflet-gpx';
+import L, {latLng, tileLayer, control} from "leaflet";
+
+//import "./node_modules/leaflet/dist/leaflet.css"
+
 
 function downloadURI(uri: any, name: any) {
   var link = document.createElement("a");
@@ -22,6 +27,9 @@ export class DistanceView implements OnInit{
   @Input('distance_id') distanceId: number
   distance: Distance = new Distance()
   urlId: number;
+
+  @ViewChild('map')
+  private mapContainer: ElementRef<HTMLElement>;
   ngOnInit(): void {
 
     this.urlId = Number(this.route.snapshot.paramMap.get('id'));
@@ -40,6 +48,7 @@ export class DistanceView implements OnInit{
     if(incomingId)
     this.globalService.distanceService.get(incomingId).subscribe(value => {
       this.distance = value;
+      // this.getMap()
     })
   }
 
@@ -65,5 +74,57 @@ export class DistanceView implements OnInit{
     request.send();
   }
 
+  gpxURL = 'https://bukkinyulsz.hu/static/bukkinyulsz/gpx/bukkinyulsz_60.gpx';
+  gpx: L.GPX = new L.GPX(this.gpxURL, {async: true})
+
+  options = {
+    layers: [
+      tileLayer('http://a.map.turistautak.hu/tiles/turistautak-domborzattal/{z}/{x}/{y}.png', { attribution: '...' ,
+        bounds: this.gpx.getBounds()
+        }),
+
+    ],
+    zoom: 10,
+    center: latLng(47.966913, 20.526699),
+    control:{
+
+    }
+
+
+  };
+
+  getMap(){
+    var map = L.map('map');
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>'
+    }).addTo(map);
+    //https://bukkinyulsz.hu/static/bukkinyulsz/gpx/bukkinyulsz_60.gpx
+    var gpx = 'https://bukkinyulsz.hu/static/bukkinyulsz/gpx/bukkinyulsz_60.gpx';
+    new L.GPX(gpx, {async: true}).on('loaded', function(e) {
+      map.fitBounds(e.target.getBounds());
+    }).addTo(map);
+/*    g.on('loaded', function(e) {
+      map.fitBounds(e.target.getBounds());
+    });
+    g.on("addline",function(e){
+      $.each(e.line, function (k, v) {
+        el.addData(v);
+      });
+    });*/
+
+    //L.control.fullscreen().addTo(map);
+
+/*    var el = L.control.elevation();
+    el.addTo(map);
+    g.on('loaded', function(e) {
+      map.fitBounds(e.target.getBounds());
+    });
+    g.on("addline",function(e){
+      $.each(e.line, function (k, v) {
+        el.addData(v);
+      });
+    });
+    g.addTo(map);*/
+  }
 
 }
