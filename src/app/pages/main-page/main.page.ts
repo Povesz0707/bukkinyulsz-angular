@@ -5,6 +5,10 @@ import {GeneralUtils} from "../../utils/general.utils";
 import {DistanceView} from "../distances/distance-view/distance.view";
 import {TourEvent} from "../../model/tourEvent-model/tourEvent.model";
 
+export interface ExpandedTourEvent{
+  tourEvent:TourEvent,
+  distances:Distance[]
+}
 @Component({
   templateUrl:'main.page.html',
   selector:'main-page',
@@ -16,21 +20,36 @@ export class MainPage implements OnInit{
   minutesLeft?:number
   hasRemainingTime?:boolean
   distanceList: Distance[] = [];
-  tourEvent:TourEvent = new TourEvent()
+  tourEvents:TourEvent[] = []
+  expandedTourEvents: ExpandedTourEvent[] = []
   ngOnInit(): void {
     this.getDistancesList()
 
   }
   getDistancesList(){
     this.distanceList = []
-    this.globalService.tourEventService.getLatestActive().subscribe(value => {
-      this.tourEvent = value
-        value.tourEventDistances?.forEach(value1 => {
-          if(value1.distance){
-            this.distanceList.push(value1.distance)
+    this.globalService.tourEventService.getActives().subscribe(value => {
+      this.tourEvents = value
+
+      this.tourEvents.forEach(tourEvent => {
+        var tourEventDistances: Distance[] = []
+
+        tourEvent.tourEventDistances?.forEach(tourEventDistance => {
+          if(tourEventDistance.distance){
+            tourEventDistances.push(tourEventDistance.distance)
           }
         })
-      this.getRegistrationRemainingTime(value.applicationTo)
+        var expandedTourEvent: ExpandedTourEvent = {
+          tourEvent: tourEvent,
+          distances: tourEventDistances
+        }
+        this.expandedTourEvents.push(expandedTourEvent)
+      })
+
+
+/*      if(this.generalUtils.dateBetween(value.applicationFrom, value.applicationTo)){
+        this.getRegistrationRemainingTime(value.applicationTo)
+      }*/
     })
   }
 

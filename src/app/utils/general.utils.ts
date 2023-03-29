@@ -2,6 +2,10 @@ import {Injectable} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
 import {DomSanitizer} from "@angular/platform-browser";
 import {SubSection} from "../model/subSection-model/subSection.model";
+import {formatDate} from "@angular/common";
+import {Distance} from "../model/distance-model/distance";
+import {DistanceSubSection} from "../model/distance-subSection-model/distance.subSection.model";
+import {BaseModel} from "../model/base-model/base.model";
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +15,10 @@ export class GeneralUtils{
   static DIALOG_OPENING_TYPE_NEW: string = "new"
   static DIALOG_CLOSE_TYPE_OK = 'ok'
   static DIALOG_CLOSE_TYPE_CANCLE = 'cancle'
+  MAX_DATE = "9999-12-31"
+  MAX_DATE_TIME = "9999-12-31T23:59"
+  CHECKING_TYPE_PERSONAL = "personal"
+  CHECKING_TYPE_CODE = "code"
 
 
   constructor(private dialog: MatDialog) {
@@ -40,31 +48,57 @@ export class GeneralUtils{
     return this.dialog.open(dialog, {data: data, width: '100vw', maxWidth: '100vw', height: '100vh',maxHeight:'80vh', panelClass:'warning-dialog'});
   }
 
-  sumAllElevation(sub: SubSection[] | undefined){
+
+  sumDistanceByDistanceSubSection(sub?: DistanceSubSection[]){
     if(sub == undefined) return ''
     var sum = 0;
     sub.forEach(value => {
-      if(value.subElevationGain)
-      sum += value.subElevationGain
+      if(value?.subSection && value?.subSection?.subLength)
+        sum += value?.subSection?.subLength
     })
     return sum
   }
 
-  sumDistance(sub?: SubSection[]){
-    if(sub == undefined) return ''
+  sumDistanceByDistance(distance?:Distance){
+    if(distance == undefined) return ''
     var sum = 0;
-    sub.forEach(value => {
-      if(value.subLength)
-        sum += value.subLength
+    distance.distanceSubsections?.forEach(distanceSubsection => {
+      if(distanceSubsection.subSection?.subLength)
+        sum += distanceSubsection.subSection?.subLength
     })
     return sum
   }
+
+  sumAllElevationByDistanceSubSection(sub?: DistanceSubSection[]){
+    if(sub == undefined) return ''
+    var sum = 0;
+    sub.forEach(value => {
+      if(value?.subSection && value?.subSection?.subElevationGain)
+        sum += value?.subSection?.subElevationGain
+    })
+    return sum
+  }
+
+
+
+  sumAllElevationByDistance(distance?:Distance){
+    if(distance == undefined) return ''
+    var sum = 0;
+    distance.distanceSubsections?.forEach(distanceSubsection => {
+      if(distanceSubsection.subSection?.subElevationGain)
+        sum += distanceSubsection.subSection?.subElevationGain
+    })
+    return sum
+  }
+
+
 
   getSublistDistanceSum(itemList?:any[], item?: any){
-    return this.sumDistance(itemList?.slice(0, this.getIndex(itemList, item) + 1))
+    //console.log(itemList?.slice(0, this.getIndex(itemList, item) + 1))
+    return this.sumDistanceByDistanceSubSection(itemList?.slice(0, this.getIndex(itemList, item) + 1))
   }
   getSublistElevationSum(itemList?:any[], item?: any){
-    return this.sumAllElevation(itemList?.slice(0, this.getIndex(itemList, item) + 1))
+    return this.sumAllElevationByDistanceSubSection(itemList?.slice(0, this.getIndex(itemList, item) + 1))
   }
 
   getIndex(itemList?: any[], item?: any){
@@ -72,12 +106,25 @@ export class GeneralUtils{
     return itemList.indexOf(item);
   }
 
+  getIndexById(itemList?:BaseModel[], item?:BaseModel){
+    if(itemList){
+      for(let i of itemList){
+        if(i.id == item?.id) return i;
+      }
+    }
+    return undefined
+  }
+
 
 
   getLocaleTimeString(d?: Date):string{
     if(d == undefined) return ''
-    var date = new Date(d)
-    return date.toLocaleTimeString()
+    var date = this.fixHours(new Date(d))
+    if(date){
+      var value = new Date(d).toISOString().slice(10,16).replace("T"," ")
+      return value
+    }
+    return ''
   }
   getLocaleTimeHourMinString(d?: Date):string{
     if(d == undefined) return ''
@@ -92,16 +139,32 @@ export class GeneralUtils{
     if(d == undefined) return ''
     return new Date(d).getFullYear()
   }
-  getLocaleDateString(d?: Date):string{
+  getLocaleDateString(d?: Date){
     if(d == undefined) return ''
-    var date = new Date(d)
-    return date.toLocaleDateString()
+    var date = this.fixHours(new Date(d))
+    if(date){
+      var value = new Date(d).toISOString().slice(0,10).replace("T"," ")
+      return value
+    }
+    return ''
   }
   weekday = ["Vasárnap","Hétfő","Kedd","Szerda","Csütörtök","Péntek","Szombat"];
   getLocaleDateTimeString(d?: Date){
     if(d == undefined) return ''
-    var date = new Date(d)
     return this.getLocaleDateString(d) + " "+ this.getLocaleTimeString(d)
+  }
+
+  getDateTimeStringFromDatabase(d?: Date){
+    if(d == undefined) return ''
+    var value = new Date(d).toISOString().slice(0,16).replace("T"," ")
+    return value
+  }
+
+  fixHours(d?:Date){
+    if(d){
+      return new Date(d.setHours(d.getHours() +Math.abs(d.getTimezoneOffset() / 60)))
+    }
+    return undefined;
   }
 
   getDayName(d?: Date){
@@ -109,4 +172,26 @@ export class GeneralUtils{
     var date = new Date(d)
     return this.weekday[date.getDay()]
   }
+
+  dateLesserThen(actualDate?:Date, controlDate ?:Date){
+    if(actualDate && controlDate){
+      var actualDateTime = new Date(actualDate).getTime();
+      var controlDateTime = new Date(controlDate).getTime();
+      return actualDateTime <= controlDateTime
+    }
+    return false
+  }
+  dateHigherThen(actualDate?:Date, controlDate ?:Date){
+    if(actualDate && controlDate){
+      var actualDateTime = new Date(actualDate).getTime();
+      var controlDateTime = new Date(controlDate).getTime();
+      return actualDateTime >= controlDateTime
+    }
+    return false
+  }
+
+  dateBetween(fromDate?:Date, toDate ?:Date){
+    return this.dateLesserThen(new Date(), toDate) && this.dateHigherThen(new Date(), fromDate)
+  }
+
 }

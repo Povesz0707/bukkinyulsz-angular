@@ -39,8 +39,21 @@
               <input  matInput  type="text" [(ngModel)]="checkpoint.name">
             </mat-form-field>
           </div>
+
+        </div>
+        <div class="row">
           <div class="col-sm-3">
-            <mat-slide-toggle [(ngModel)]="checkpoint.isMainCheckpoint">Fő ellenőzrőpont</mat-slide-toggle>
+              <mat-slide-toggle [(ngModel)]="checkpoint.isMainCheckpoint">Ellenőzrőpont</mat-slide-toggle>
+          </div>
+          <div class="col-sm-9">
+            <mat-radio-group [(ngModel)]="checkpoint.checkingType">
+              <mat-radio-button  [value]="generalUtils.CHECKING_TYPE_PERSONAL">
+                Személyes jelenlét
+              </mat-radio-button>
+              <mat-radio-button  [value]="generalUtils.CHECKING_TYPE_CODE">
+                Kód leolvasása
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
         </div>
         <div class="row" style="align-items: center;">
@@ -53,6 +66,7 @@
           </div>
         </div>
       </div>
+
     </mat-tab>
   </mat-tab-group>
 </mat-dialog-content>

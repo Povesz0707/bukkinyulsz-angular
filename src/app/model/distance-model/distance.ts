@@ -1,6 +1,7 @@
 import {BaseModel} from "../base-model/base.model";
 import {SubSection} from "../subSection-model/subSection.model";
 import {Reward} from "../reward-model/reward.model";
+import {DistanceSubSection} from "../distance-subSection-model/distance.subSection.model";
 
 export class Distance extends BaseModel{
   name?:string
@@ -23,6 +24,7 @@ export class Distance extends BaseModel{
   receiptOfItineraryTo?:Date
   timekeepingType?:string
   services?:string
+  distanceSubsections?:DistanceSubSection[]
   subSections?:SubSection[]
   rewards?:Reward[]
 }

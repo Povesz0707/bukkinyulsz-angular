@@ -7,45 +7,41 @@
     <ul class="navbar-nav justify-content-center  ">
       <li class="nav-item"><a class="nav-link" routerLink="/home" routerLinkActive="active" ><i style="font-size: 15px" class="bi bi-house"></i> Főoldal</a></li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="https://bukkinyulsz.hu/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Távok
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" *ngFor="let item of distanceList" (click)="openTavDialog(item)">{{item.length}} - {{item.name}}</a>
-<!--          <a class="dropdown-item" href="https://bukkinyulsz.hu/#/leiras/hu/60">60</a>
-          <a class="dropdown-item" href="https://bukkinyulsz.hu/#/leiras/hu/35">35</a>
-
-          <a class="dropdown-item" href="https://bukkinyulsz.hu/#/leiras/hu/26">26</a>
-          <a class="dropdown-item" href="https://bukkinyulsz.hu/#/leiras/hu/13">13</a>
-          <a class="dropdown-item" href="https://bukkinyulsz.hu/#/leiras/hu/10">10</a>-->
-          <div class="dropdown-divider"></div>
-        </div>
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">Túrák / távok</a>
+        <ul class="dropdown-menu mainMenu">
+         <!-- <li><a class="dropdown-item" href="#"> Dropdown item 1 </a></li> sima item-->
+          <li *ngFor="let tourEvent of expandedTourEvents"><a class="dropdown-item" style="display: flex;" >{{tourEvent.tourEvent.name}} - {{generalUtils.getYearString(tourEvent.tourEvent.dateOfEvent)}}<i style="font-size: 10px" class="bi bi-caret-right-fill"></i></a>
+            <ul class="submenu dropdown-menu">
+              <li><a (click)="openTavDialog(distance)" class="dropdown-item" *ngFor="let distance of tourEvent.distances">{{distance.name}} - {{distance.length}} km</a></li>
+            </ul>
+          </li>
+        </ul>
       </li>
-      <li class="nav-item"><a class="nav-link" href="https://bukkinyulsz.hu/event/tt2022/nevezes">Nevezés</a></li>
-      <li class="nav-item"><a class="nav-link" href="https://bukkinyulsz.hu/#/leiras/hu/tudnivalok">Fontos tudnivalók</a></li>
+      <li class="nav-item" *ngIf="isRegistrationTimeBoolean"><a class="nav-link" href="https://bukkinyulsz.hu/event/tt2022/nevezes">Nevezés</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/importantInformation" routerLinkActive="active">Fontos tudnivalók</a></li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="https://bukkinyulsz.hu/" id="navbarDropdownEredmenyek" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Eredmények
         </a>
-        <div class="dropdown-menu" uib-dropwdown-menu aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu mainMenu" uib-dropwdown-menu aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="https://bukkinyulsz.hu/#/stat/nevsor">Bükkinyúlsz 2022 TT</a>
           <a class="dropdown-item" href="https://bukkinyulsz.hu/#/leiras/hu/teljesitok">GeoGo eredmények</a>
 
           <div class="dropdown-divider"></div>
         </div>
       </li>
-      <li class="nav-item"><a class="nav-link" href="https://bukkinyulsz.hu/#/leiras/hu/kapcsolat">Kapcsolat</a></li>
+      <li class="nav-item"><a class="nav-link" (click)="scroll(contact)" >Kapcsolat</a></li>
       <li class="nav-item dropdown">
         <a style="color: #00227b" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <b>ADMIN FELÜLET</b>
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="nav-item dropdown-item" routerLink="/admin-page/login" routerLinkActive="active">Bjelentkezés</a>
-          <div class="dropdown-divider"></div>
-          <a class="nav-item dropdown-item" routerLink="/admin-page/event" routerLinkActive="active">Események kezelése</a>
-          <a class="nav-item dropdown-item" routerLink="/admin-page/distances" routerLinkActive="active">Távok kezelése</a>
-          <a class="nav-item dropdown-item" routerLink="/admin-page/subSection" routerLinkActive="active">Szakaszok kezelése</a>
-          <a class="nav-item dropdown-item" routerLink="/admin-page/checkpoint" routerLinkActive="active">Ellenőrzőpontok kezelése</a>
+        <div class="dropdown-menu mainMenu" aria-labelledby="navbarDropdown">
+          <a class="nav-item dropdown-item " routerLink="/admin-page/login" routerLinkActive="active">Bejelentkezés</a>
+            <div class="dropdown-divider"></div>
+            <a class="nav-item dropdown-item" routerLink="/admin-page/event" routerLinkActive="active">Események kezelése</a>
+            <a class="nav-item dropdown-item" routerLink="/admin-page/distances" routerLinkActive="active">Távok kezelése</a>
+            <a class="nav-item dropdown-item" routerLink="/admin-page/subSection" routerLinkActive="active">Szakaszok kezelése</a>
+            <a class="nav-item dropdown-item" routerLink="/admin-page/checkpoint" routerLinkActive="active">Ellenőrzőpontok kezelése</a>
           <div class="dropdown-divider"></div>
         </div>
       </li>
@@ -55,7 +51,8 @@
 <div>
   <router-outlet></router-outlet>
 </div>
-<div style="width: 100%; text-align: -webkit-right;">
+<button style="border-radius: 90px; border: 1px solid lightgray;" *ngIf="scrollBackButtonVisible" (click)="scrollBackToTop()" type="button" class="btn btn-outline-dark btn-lg myBtn bi bi-caret-up"></button>
+<div #contact style="width: 100%; text-align: -webkit-right;">
   <div class=""
        style="margin:0px 0px 0px 0px; box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 100%; background-color: #fff; padding: 10px;">
     <footer class="">

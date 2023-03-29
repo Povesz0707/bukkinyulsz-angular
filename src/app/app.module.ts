@@ -10,7 +10,7 @@ import {DistanceView} from "./pages/distances/distance-view/distance.view";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {AdminPageLogin} from "./pages/admin-page/admin-page-login/admin.page.login";
@@ -53,6 +53,20 @@ import {
   AdminPageCheckpointList
 } from "./pages/admin-page/admin-page-checkpoint/admin-page-checkpoint-list/admin.page.checkpoint.list";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {UploaderModule} from "angular-uploader";
+import {MatButtonModule} from "@angular/material/button";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from "@angular-material-components/datetime-picker";
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {ImportantInformationPage} from "./pages/importantInformation-page/importantInformation.page";
 
 @NgModule({
   declarations: [
@@ -73,9 +87,13 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     AdminPageCheckpoint,
     AdminPageCheckpointDialog,
     AdminPageCheckpointList,
-    AdminPageLogin
+    AdminPageLogin,
+    ImportantInformationPage
   ],
   imports: [
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    UploaderModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -91,11 +109,20 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     MatTabsModule,
     MatSelectModule,
     MatCardModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    NgxMatDatetimePickerModule,
+    MatRadioModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
 
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'hu-HU'},
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

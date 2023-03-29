@@ -22,6 +22,8 @@
 }
 
 
+
+
 /*
 ::ng-deep.mdc-data-table__header-cell {
   text-align: center !important;
@@ -30,6 +32,54 @@
 ::ng-deep.mdc-data-table__row:last-child .mdc-data-table__cell {
   text-align-last: center !important;
 }*/
+
+/*
+ .dropdown-submenu {
+   position: relative;
+ }
+
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
+*/
+
+/*
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+}
+*/
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  opacity: 0;
+  transition: all .2s ease-in-out;
+}
+.show-scrollTop {
+  opacity: 1;
+  transition: all .2s ease-in-out;
+}
+
+.myBtn {
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+}
+
+
 
 
 ::ng-deep.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
@@ -116,10 +166,6 @@ label{
   box-shadow: 0px 10px 70px 30px #fff !important;
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
-  margin-top: 0;
-}
 
 
 

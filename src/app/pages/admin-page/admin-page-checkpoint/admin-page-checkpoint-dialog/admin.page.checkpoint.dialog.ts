@@ -18,7 +18,7 @@ export interface AdminPageCheckpointDialogData{
 })
 export class AdminPageCheckpointDialog implements OnInit{
   checkpoint:Checkpoint = new Checkpoint()
-  tileText:string = "Új ellenörzőpont hozzáaadása"
+  tileText:string = "Új pont hozzáaadása"
   ngOnInit(): void {
     this.getData()
   }
@@ -28,7 +28,7 @@ export class AdminPageCheckpointDialog implements OnInit{
       if(this.data.item.id)
         this.globalService.checkpointService.get(this.data.item.id).subscribe(value => {
           this.checkpoint = value;
-          this.tileText = this.checkpoint.name+" ellenörzőpont szerkesztése"
+          this.tileText = this.checkpoint.name+" pont szerkesztése"
         })
     }
   }

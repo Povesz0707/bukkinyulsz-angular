@@ -44,7 +44,7 @@
           <div class="col-sm-3">
             <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
               <mat-label>Megrendezés dátuma</mat-label>
-              <input  matInput  type="date"  [ngModel] ="tourEvent.dateOfEvent | date:'yyyy-MM-dd'" (ngModelChange)="tourEvent.dateOfEvent = $event">
+              <input  matInput [max]="generalUtils.MAX_DATE" type="date"  [ngModel] ="tourEvent.dateOfEvent | date:'yyyy-MM-dd'" (ngModelChange)="tourEvent.dateOfEvent = $event">
             </mat-form-field>
           </div>
           <div class="col-sm-3">
@@ -58,19 +58,19 @@
           <div class="col-sm-3">
             <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
               <mat-label>Előnevezés (-tól)</mat-label>
-              <input  matInput  type="datetime-local" [ngModel] ="tourEvent.applicationFrom | date:'yyyy-MM-dd HH:mm'" (ngModelChange)="tourEvent.applicationFrom = $event">
+              <input  matInput [max]="generalUtils.MAX_DATE_TIME" type="datetime-local" [ngModel]="incomeTourEventApplicationFrom" (ngModelChange)="incomeTourEventApplicationFrom = $event">
             </mat-form-field>
           </div>
-          <input type = "datetime" name = "newinput" />
           <div class="col-sm-3">
             <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
-              <mat-label>Előnevezés (-ig)</mat-label>
-              <input  matInput  type="datetime-local"  [ngModel] ="tourEvent.applicationTo | date:'yyyy-MM-dd HH:mm'" (ngModelChange)="tourEvent.applicationTo = $event">
+              <input  matInput [max]="generalUtils.MAX_DATE_TIME"  type="datetime-local"  [ngModel]="incomeTourEventApplicationTo" (ngModelChange)="incomeTourEventApplicationTo = $event">
             </mat-form-field>
           </div>
         </div>
+
       </div>
     </mat-tab>
+
     <mat-tab  label="Táv adatok">
       <admin-page-distances-list *ngIf="tourEvent.id" [inputTourEvent]="tourEvent"></admin-page-distances-list>
     </mat-tab>

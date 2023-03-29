@@ -3,10 +3,16 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {Distance} from "../../../model/distance-model/distance";
 import {GlobalService} from "../../../services/global.service";
 import {GeneralUtils} from "../../../utils/general.utils";
-import {Marking} from "../../../model/marking-model/marking.model";
-import {SubSection} from "../../../model/subSection-model/subSection.model";
 import {ActivatedRoute} from "@angular/router";
 
+function downloadURI(uri: any, name: any) {
+  var link = document.createElement("a");
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 @Component({
   selector: 'distance-view',
   templateUrl: 'distance.view.html',
@@ -17,9 +23,11 @@ export class DistanceView implements OnInit{
   distance: Distance = new Distance()
   urlId: number;
   ngOnInit(): void {
+
     this.urlId = Number(this.route.snapshot.paramMap.get('id'));
     this.getData()
   }
+
   getData(){
     var incomingId:number | undefined
 
@@ -39,8 +47,23 @@ export class DistanceView implements OnInit{
   constructor(private globalService: GlobalService, @Inject(MAT_DIALOG_DATA) public data: Distance, public generalUtils: GeneralUtils,private route: ActivatedRoute) {
   }
 
-  redirectToDownload(url: string | undefined  ) {
+  redirectToDownload(url: string | undefined, type?:string) {
     if (url == undefined) return
-    window.location.href = url;
+    var request = new XMLHttpRequest();
+    var name = this.distance.name + "_"+this.distance.length+"km"
+    request.open('GET', url, true);
+    request.responseType = 'blob';
+
+    request.onload = function() {
+      var reader = new FileReader();
+      reader.readAsDataURL(request.response);
+      reader.onload =  () => {
+
+        downloadURI(reader.result, name+""+type);
+      }
+    };
+    request.send();
   }
+
+
 }

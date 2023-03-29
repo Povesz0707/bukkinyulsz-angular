@@ -46,13 +46,9 @@
               <input  matInput  type="number" [(ngModel)]="distance.length">
             </mat-form-field>
           </div>
-          <div class="col-sm-6">
-            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
-              <mat-label>Logo URL</mat-label>
-              <input  matInput  type="text" [(ngModel)]="distance.logoUrl">
-            </mat-form-field>
-          </div>
+
         </div>
+
         <div class="row" style="align-items: center;">
           <div class="col-sm-3">
             <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
@@ -113,27 +109,46 @@
           </div>
         </div>
         <div class="row" style="align-items: center;">
-          <div class="col-sm-12">
+          <div class="col-sm-8">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Logo URL</mat-label>
+              <input disabled matInput  type="text" [(ngModel)]="distance.logoUrl">
+            </mat-form-field>
+          </div>
+
+          <div class="col-sm-4" style="    align-self: stretch;">
+            <input style="padding-top: 10px;" #csvInput type="file" accept="image/png, image/gif, image/jpeg" onclick="this.value=null" (change)="onFileSelected($event, 'logoUrl')"/>
+          </div>
+          <div class="col-sm-8">
             <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
               <mat-label>GPX URL</mat-label>
               <input  matInput  type="text" [(ngModel)]="distance.gpxURL">
             </mat-form-field>
           </div>
+          <div class="col-sm-4" style="    align-self: stretch;">
+            <input style="padding-top: 10px;" #csvInput type="file"  onclick="this.value=null" (change)="onFileSelected($event, 'gpxURL')"/>
+          </div>
         </div>
         <div class="row" style="align-items: center;">
-          <div class="col-sm-12">
+          <div class="col-sm-8">
             <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
               <mat-label>Leírás URL</mat-label>
               <input  matInput  type="text" [(ngModel)]="distance.descriptionURL">
             </mat-form-field>
           </div>
+          <div class="col-sm-4" style="    align-self: stretch;">
+            <input style="padding-top: 10px;" #csvInput type="file" accept="image/png, image/gif, image/jpeg" onclick="this.value=null" (change)="onFileSelected($event, 'descriptionURL')"/>
+          </div>
         </div>
         <div class="row" style="align-items: center;">
-          <div class="col-sm-12">
+          <div class="col-sm-8">
             <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
               <mat-label>Térkép URL</mat-label>
               <input  matInput  type="text" [(ngModel)]="distance.mapURL">
             </mat-form-field>
+          </div>
+          <div class="col-sm-4" style="    align-self: stretch;">
+            <input style="padding-top: 10px;" #csvInput type="file" accept="image/png, image/gif, image/jpeg" onclick="this.value=null" (change)="onFileSelected($event, 'mapURL')"/>
           </div>
         </div>
         <div class="row" style="align-items: center;">

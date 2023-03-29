@@ -31,7 +31,7 @@ export class AdminPageSubSectionList implements OnInit{
   distanceSubSection: DistanceSubSection[] = []
   distanceSubSectionMatTableDataSource: MatTableDataSource<DistanceSubSection>
   distanceSubSectionSelection = new SelectionModel<DistanceSubSection>(true, []);
-  distanceSubSectionDisplayedColumns: string[] = ['select','id','from','to','action']
+  distanceSubSectionDisplayedColumns: string[] = ['select','id','from','to','subLength','subElevationGain','action']
   selectedTourEvent: TourEvent;
   availableTourEvents: TourEvent[] = [];
 

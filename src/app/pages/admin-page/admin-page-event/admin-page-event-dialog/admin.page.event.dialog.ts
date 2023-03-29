@@ -20,6 +20,9 @@ export interface AdminPageEventDialogData{
 export class AdminPageEventDialog implements OnInit{
   tourEvent:TourEvent = new TourEvent()
   tileText:string = "Új esemény hozzáaadása"
+
+  incomeTourEventApplicationTo?:string
+  incomeTourEventApplicationFrom?: string;
   constructor(private globalService: GlobalService, public generalUtils: GeneralUtils,@Inject(MAT_DIALOG_DATA) public data: AdminPageEventDialogData, private dialogRef: MatDialogRef<AdminPageEventDialog>) {
   }
   ngOnInit(): void {
@@ -32,11 +35,26 @@ export class AdminPageEventDialog implements OnInit{
         this.globalService.tourEventService.get(this.data.item.id).subscribe(value => {
           this.tourEvent = value;
           this.tileText = this.tourEvent.name+" esemény szerkesztése"
+          this.incomeTourEventApplicationTo = this.generalUtils.getDateTimeStringFromDatabase(value.applicationTo)
+          this.incomeTourEventApplicationFrom = this.generalUtils.getDateTimeStringFromDatabase(value.applicationFrom)
         })
     }
   }
 
+  fixDates(){
+    if(this.incomeTourEventApplicationTo){
+      this.tourEvent.applicationTo = this.generalUtils.fixHours(new Date(this.incomeTourEventApplicationTo))
+    }
+    if(this.incomeTourEventApplicationFrom){
+      this.tourEvent.applicationFrom = this.generalUtils.fixHours(new Date(this.incomeTourEventApplicationFrom))
+    }
+  }
+
+
+
+
   save() {
+    this.fixDates()
     if(this.data.openingMode == GeneralUtils.DIALOG_OPENING_TYPE_NEW){
       this.globalService.tourEventService.add(this.tourEvent).subscribe(value => {
         this.dialogRef.close();

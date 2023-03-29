@@ -7,11 +7,11 @@
     <div class="col-6" style="align-self: center;">
       <table class="table table-borderless table-sm ">
         <tbody>
-        <tr *ngIf="distance.length">
-          <td><b>Hossz</b></td><td>{{generalUtils.sumDistance(distance.subSections)}} km</td>
+        <tr *ngIf="generalUtils.sumDistanceByDistance(distance)">
+          <td><b>Hossz</b></td><td>{{generalUtils.sumDistanceByDistance(distance)}} km</td>
         </tr>
-        <tr>
-          <td><b>Összes szintemelkedés</b></td><td>{{generalUtils.sumAllElevation(distance.subSections)}} m</td>
+        <tr *ngIf="generalUtils.sumAllElevationByDistance(distance)">
+          <td><b>Összes szintemelkedés</b></td><td>{{generalUtils.sumAllElevationByDistance(distance)}} m</td>
         </tr>
         <tr *ngIf="distance.startPlace">
           <td><b>Rajt helyszíne</b></td><td>{{distance.startPlace}}</td>
@@ -20,10 +20,10 @@
           <td><b>Cél helyszíne</b></td><td>{{distance.finishPlace}}</td>
         </tr>
         <tr *ngIf="distance.startTimeFrom || distance.startTimeTo">
-          <td><b>Rajtidő</b></td><td>{{distance.startTimeFrom}} - {{distance.startTimeTo}}</td>
+          <td><b>Rajtidő</b></td><td>{{generalUtils.getLocaleDateTimeString(distance.startTimeFrom)}} - {{generalUtils.getLocaleDateTimeString(distance.startTimeTo)}}</td>
         </tr>
         <tr *ngIf="distance.timeLimit">
-          <td><b>Szintidő</b></td><td>{{distance.timeLimit}} óra</td>
+          <td><b>Szintidő</b></td><td>{{distance.timeLimit}}</td>
         </tr>
         <tr *ngIf="distance.rewards">
           <td><b>Díjazás</b></td><td>{{distance.rewards}}</td>
@@ -49,9 +49,9 @@
     <div class="col-12">
       <b>Letölthető tartalmak</b><br>
       <div>
-        <button *ngIf="distance.gpxURL" style="margin-right: 10px" type="button" (click)="redirectToDownload(distance.gpxURL)" class="btn btn-outline-success bi bi-download btn-sm"> GPX Letöltése</button>
-        <button *ngIf="distance.descriptionURL" style="margin-right: 10px" type="button" (click)="redirectToDownload(distance.descriptionURL)" class="btn btn-outline-success bi bi-download btn-sm"> Térkép Letöltése</button>
-        <button *ngIf="distance.mapURL" style="margin-right: 10px" type="button" (click)="redirectToDownload(distance.mapURL)" class="btn btn-outline-success bi bi-download btn-sm"> Útvonalleírás Letöltése</button>
+        <button *ngIf="distance.gpxURL"  style="margin-right: 10px" type="button" (click)="redirectToDownload(distance.gpxURL,'_gpx')" class="btn btn-outline-success bi bi-download btn-sm"> GPX Letöltése</button>
+        <button *ngIf="distance.descriptionURL" style="margin-right: 10px" type="button" (click)="redirectToDownload(distance.descriptionURL,'_leírás')" class="btn btn-outline-success bi bi-download btn-sm"> Térkép Letöltése</button>
+        <button *ngIf="distance.mapURL" style="margin-right: 10px" type="button" (click)="redirectToDownload(distance.mapURL,'_térkép')" class="btn btn-outline-success bi bi-download btn-sm"> Útvonalleírás Letöltése</button>
       </div>
     </div>
   </div>
@@ -78,9 +78,10 @@
       </ul>
     </div>
   </div>
-  <div class="row" *ngIf="distance.subSections">
+  <div class="row" *ngIf="distance.distanceSubsections">
     <div class="col-12">
       <b>Útvonal részletes táblázat</b>
+      <section class="table-container mat-elevation-z2" tabindex="0">
       <table class="table table-sm">
         <thead>
         <tr>
@@ -93,22 +94,30 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let section of distance.subSections">
-          <td>{{section?.checkpointFrom?.name}}</td>
-          <td>{{section?.checkpointTo?.name}}</td>
-          <td>{{section?.subLength}}</td>
-          <td>{{generalUtils.getSublistDistanceSum(distance.subSections, section)}}</td>
-          <td>{{section?.subElevationGain}}</td>
-          <td>{{generalUtils.getSublistElevationSum(distance.subSections, section)}}</td>
+        <tr *ngFor="let ds of distance.distanceSubsections">
+          <td style="display: flex;">{{ds?.subSection?.checkpointFrom?.name}}
+            <i *ngIf="ds?.subSection?.checkpointFrom?.isMainCheckpoint" style="font-weight: bold; font-size: 20px" class="bi bi-card-checklist" matTooltip="Ellenőrzőpont"></i>
+            <i *ngIf="ds?.subSection?.checkpointFrom?.checkingType == generalUtils.CHECKING_TYPE_PERSONAL" style="padding-left:5px; font-size: 20px" class="bi bi-person" matTooltip="Személyes ellenörzőpont"></i>
+            <i *ngIf="ds?.subSection?.checkpointFrom?.checkingType == generalUtils.CHECKING_TYPE_CODE" style="padding-left:5px; font-size: 20px" class="bi bi-spellcheck" matTooltip="Kódos ellenörzőpont"></i>
+          </td>
+          <td>{{ds?.subSection?.checkpointTo?.name}}
+            <i *ngIf="ds?.subSection?.checkpointTo?.isMainCheckpoint" style="font-weight: bold; font-size: 20px" class="bi bi-card-checklist" matTooltip="Ellenőrzőpont"></i>
+            <i *ngIf="ds?.subSection?.checkpointTo?.checkingType == generalUtils.CHECKING_TYPE_PERSONAL" style="padding-left:5px; font-size: 20px" class="bi bi-person" matTooltip="Személyes ellenörzőpont"></i>
+            <i *ngIf="ds?.subSection?.checkpointTo?.checkingType == generalUtils.CHECKING_TYPE_CODE" style="padding-left:5px; font-size: 20px" class="bi bi-spellcheck" matTooltip="Kódos ellenörzőpont"></i>
+          </td>
+          <td>{{ds?.subSection?.subLength}}</td>
+          <td>{{generalUtils.getSublistDistanceSum(distance.distanceSubsections, ds)}}</td>
+          <td>{{ds?.subSection?.subElevationGain}}</td>
+          <td>{{generalUtils.getSublistElevationSum(distance.distanceSubsections, ds)}}</td>
           <td>
-            <a class="tavicon" *ngFor="let marking of section.markings" >
-              <img *ngIf="marking.marking" [src]="marking.marking.url" matTooltipPosition="above" [matTooltip]="marking.marking.name ? marking.marking.name : ''" style="margin-right: 5px; box-shadow: 2px 2px 2px 0px #00000033;">
+            <a class="tavicon" *ngFor="let marking of ds?.subSection?.markings" >
+              <img height="18" *ngIf="marking.marking" [src]="marking.marking.url" matTooltipPosition="above" [matTooltip]="marking.marking.name ? marking.marking.name : ''" style="margin-right: 5px; box-shadow: 2px 2px 2px 0px #00000033;">
             </a>
-
           </td>
         </tr>
         </tbody>
       </table>
+      </section>
     </div>
   </div>
 

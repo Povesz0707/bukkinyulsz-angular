@@ -4,4 +4,5 @@ export class Checkpoint extends BaseModel{
   name?:string
   ellatas?:string
   isMainCheckpoint?:boolean
+  checkingType?:string
 }

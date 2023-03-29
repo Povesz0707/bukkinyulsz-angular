@@ -14,6 +14,10 @@ export class TourEventService extends BaseService<TourEvent>{
   getLatestActive(): Observable<TourEvent>{
     return this.http.get<TourEvent>(`${this.apiMethodDir}/get/getLatestActive`);
   }
+
+  getActives(): Observable<TourEvent[]>{
+    return this.http.get<TourEvent[]>(`${this.apiMethodDir}/list/active`);
+  }
   updateActiveStatus(tourEventList:TourEvent[], status:boolean): Observable<TourEvent>{
     return this.http.post<TourEvent>(`${this.apiMethodDir}/updateActiveStatus/${status}`,tourEventList);
   }

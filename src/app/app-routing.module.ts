@@ -17,6 +17,7 @@ import {
 import {
   AdminPageCheckpoint
 } from "./pages/admin-page/admin-page-checkpoint/admin-page-checkpoint/admin.page.checkpoint";
+import {ImportantInformationPage} from "./pages/importantInformation-page/importantInformation.page";
 
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: MainPage, pathMatch: 'prefix'},
   {path: 'distance/:id', component: DistanceView, pathMatch: 'full'},
+  {path: 'importantInformation', component: ImportantInformationPage, pathMatch: 'full'},
   {path: 'admin-page/login', component: AdminPageLogin, pathMatch:'full'},
   {path: 'admin-page/distances', component: AdminPageDistance, pathMatch:'full'},
   {path: 'admin-page/login', component: AdminPageLogin, pathMatch:'full'},
