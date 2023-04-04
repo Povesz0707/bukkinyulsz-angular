@@ -18,20 +18,23 @@ import {
   AdminPageCheckpoint
 } from "./pages/admin-page/admin-page-checkpoint/admin-page-checkpoint/admin.page.checkpoint";
 import {ImportantInformationPage} from "./pages/importantInformation-page/importantInformation.page";
+import {ResultPage} from "./pages/result-page/result.page";
+import {AuthGuard} from "./auth/auth.guard";
 
 
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: MainPage, pathMatch: 'prefix'},
+  {path: 'resultPage', component: ResultPage, pathMatch: 'prefix'},
   {path: 'distance/:id', component: DistanceView, pathMatch: 'full'},
   {path: 'importantInformation', component: ImportantInformationPage, pathMatch: 'full'},
   {path: 'admin-page/login', component: AdminPageLogin, pathMatch:'full'},
-  {path: 'admin-page/distances', component: AdminPageDistance, pathMatch:'full'},
-  {path: 'admin-page/login', component: AdminPageLogin, pathMatch:'full'},
-  {path: 'admin-page/event', component: AdminPageEvent, pathMatch:'full'},
-  {path: 'admin-page/subSection', component: AdminPageSubSection, pathMatch:'full'},
-  {path: 'admin-page/checkpoint', component: AdminPageCheckpoint, pathMatch:'full'},
+  {path: 'admin-page/distances', component: AdminPageDistance, pathMatch:'full', canActivate: [AuthGuard]},
+  {path: 'admin-page/login', component: AdminPageLogin, pathMatch:'full', canActivate: [AuthGuard]},
+  {path: 'admin-page/event', component: AdminPageEvent, pathMatch:'full', canActivate: [AuthGuard]},
+  {path: 'admin-page/subSection', component: AdminPageSubSection, pathMatch:'full', canActivate: [AuthGuard]},
+  {path: 'admin-page/checkpoint', component: AdminPageCheckpoint, pathMatch:'full', canActivate: [AuthGuard]},
   {path: '**', redirectTo: '404'}
 
 ];

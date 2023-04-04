@@ -9,4 +9,8 @@ export class TourEvent extends BaseModel{
   placeOfEvent?:string
   active?:boolean
   tourEventDistances?:TourEventDistance[]
+
+  bannerImage?:string
+  bannerHeader?:string
+  bannerText?:string
 }

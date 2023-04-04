@@ -1,25 +1,31 @@
-<nav class="navbar justify-content-center  navbar-expand-sm navbar-light bg-light fixed-top" style="display: flex;">
-
+<nav class="navbar justify-content-center  navbar-expand-sm navbar-light bg-light fixed-top mat-elevation-z24" style="display: flex;">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse justify-content-center " id="navbarSupportedContent">
     <ul class="navbar-nav justify-content-center  ">
       <li class="nav-item"><a class="nav-link" routerLink="/home" routerLinkActive="active" ><i style="font-size: 15px" class="bi bi-house"></i> Főoldal</a></li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" *ngIf="expandedTourEvents.length >0">
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">Túrák / távok</a>
         <ul class="dropdown-menu mainMenu">
          <!-- <li><a class="dropdown-item" href="#"> Dropdown item 1 </a></li> sima item-->
-          <li *ngFor="let tourEvent of expandedTourEvents"><a class="dropdown-item" style="display: flex;" >{{tourEvent.tourEvent.name}} - {{generalUtils.getYearString(tourEvent.tourEvent.dateOfEvent)}}<i style="font-size: 10px" class="bi bi-caret-right-fill"></i></a>
+          <li *ngFor="let tourEvent of expandedTourEvents"><a class="nav-item dropdown-item" style="display: flex;" >{{tourEvent.tourEvent.name}} - {{generalUtils.getYearString(tourEvent.tourEvent.dateOfEvent)}}<i style="font-size: 10px" class="bi bi-caret-right-fill"></i></a>
             <ul class="submenu dropdown-menu">
-              <li><a (click)="openTavDialog(distance)" class="dropdown-item" *ngFor="let distance of tourEvent.distances">{{distance.name}} - {{distance.length}} km</a></li>
+              <li><a (click)="openTavDialog(distance)" class="nav-item dropdown-item" *ngFor="let distance of tourEvent.distances">{{distance.name}} - {{distance.length}} km</a></li>
             </ul>
           </li>
         </ul>
       </li>
+      <li class="nav-item dropdown" *ngIf="availablePreRegistrations.length >0">
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">Nevezés</a>
+        <div class="dropdown-menu mainMenu" aria-labelledby="navbarDropdown">
+          <a class="nav-item dropdown-item" *ngFor="let item of availablePreRegistrations" (click)=openRegistrationPage(item.tourEvent)>{{item.tourEvent.name}} - {{generalUtils.getYearString(item.tourEvent.dateOfEvent)}} </a>
+        </div>
+      </li>
       <li class="nav-item" *ngIf="isRegistrationTimeBoolean"><a class="nav-link" href="https://bukkinyulsz.hu/event/tt2022/nevezes">Nevezés</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/importantInformation" routerLinkActive="active">Fontos tudnivalók</a></li>
-      <li class="nav-item dropdown">
+      <li class="nav-item "><a class="nav-link"  routerLink="/resultPage" routerLinkActive="active">Eredmények</a></li>
+<!--      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="https://bukkinyulsz.hu/" id="navbarDropdownEredmenyek" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Eredmények
         </a>
@@ -29,26 +35,26 @@
 
           <div class="dropdown-divider"></div>
         </div>
-      </li>
+      </li>-->
       <li class="nav-item"><a class="nav-link" (click)="scroll(contact)" >Kapcsolat</a></li>
-      <li class="nav-item dropdown">
+      <li *ngIf="globalService.storageServices.userStorageService.isAdminLogin()" class="nav-item dropdown">
         <a style="color: #00227b" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <b>ADMIN FELÜLET</b>
         </a>
         <div class="dropdown-menu mainMenu" aria-labelledby="navbarDropdown">
-          <a class="nav-item dropdown-item " routerLink="/admin-page/login" routerLinkActive="active">Bejelentkezés</a>
+          <a class="nav-item dropdown-item " routerLink="/admin-page/login" routerLinkActive="active" *ngIf="!globalService.storageServices.userStorageService.isLoggedIn()">Bejelentkezés</a>
+          <a class="nav-item dropdown-item " routerLink="/admin-page/login" routerLinkActive="active" (click)="globalService.storageServices.userStorageService.signOut()" *ngIf="globalService.storageServices.userStorageService.isLoggedIn()">Kijelentkezés</a>
             <div class="dropdown-divider"></div>
             <a class="nav-item dropdown-item" routerLink="/admin-page/event" routerLinkActive="active">Események kezelése</a>
             <a class="nav-item dropdown-item" routerLink="/admin-page/distances" routerLinkActive="active">Távok kezelése</a>
             <a class="nav-item dropdown-item" routerLink="/admin-page/subSection" routerLinkActive="active">Szakaszok kezelése</a>
             <a class="nav-item dropdown-item" routerLink="/admin-page/checkpoint" routerLinkActive="active">Ellenőrzőpontok kezelése</a>
-          <div class="dropdown-divider"></div>
         </div>
       </li>
     </ul>
   </div>
 </nav>
-<div>
+<div style="padding-top: 60px">
   <router-outlet></router-outlet>
 </div>
 <button style="border-radius: 90px; border: 1px solid lightgray;" *ngIf="scrollBackButtonVisible" (click)="scrollBackToTop()" type="button" class="btn btn-outline-dark btn-lg myBtn bi bi-caret-up"></button>
@@ -60,7 +66,7 @@
           style="display: flex;justify-content: center;">
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Főoldal</a></li>
       </ul>
-      <ul class="nav justify-content-center border-bottom " style="display: flex;justify-content: center; padding: auto;">
+      <ul class="nav justify-content-center border-bottom " style="display: flex;justify-content: center; ">
         <li class="transform"><a style="color: black; font-size: 30px" title="Facebook" class="bi bi-facebook" href="https://www.facebook.com/subalyukmuzeumeslatogatokozpont/"></a></li>
         <li class="transform"><a style="color: black; font-size: 30px" title="Instagram" class="bi bi-instagram"></a></li>
         <li class="transform"><a style="color: black; font-size: 30px" title="Email" class="bi bi-envelope-at " href="mailto:info@bukkinyulsz.com"></a></li>

@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {GlobalService} from "../../../services/global.service";
+import {LoginRequest} from "../../../model/payload/login/LoginRequest";
 
 @Component({
   styleUrls:['admin.page.login.css'],
@@ -7,8 +8,11 @@ import {GlobalService} from "../../../services/global.service";
   selector:'admin-page-login'
 })
 export class AdminPageLogin implements OnInit{
+  username: string
+  password:string
+  errorMessage: string;
 
-  constructor(private globalService: GlobalService) {
+  constructor(public globalService: GlobalService) {
   }
 
   private fileName: string;
@@ -21,5 +25,21 @@ export class AdminPageLogin implements OnInit{
       const formData = new FormData();
       formData.append("thumbnail", file);
     }
+  }
+
+  login() {
+    var request: LoginRequest = {
+      username: this.username,
+      password: this.password
+    }
+    this.globalService.userService.logIn(request).subscribe(value => {
+      console.log("DONE", value)
+      if(value.accessToken){
+        this.globalService.storageServices.userStorageService.saveToken(value.accessToken)
+      }
+      this.globalService.storageServices.userStorageService.saveUser(value)
+    },error => {
+      this.errorMessage = error.error.message
+    })
   }
 }

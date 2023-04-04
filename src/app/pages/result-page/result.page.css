@@ -1,0 +1,33 @@
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+}
+
+::ng-deep.mdc-data-table__header-cell {
+  text-align: center !important;
+}
+
+::ng-deep.mdc-data-table__row:last-child .mdc-data-table__cell {
+  text-align-last: center !important;
+}
+
+::ng-deep  .mat-row, tr.mat-footer-row {
+  height: 10px !important;
+}
+::ng-deep.mat-mdc-table tbody, .mat-row, tr.mat-footer-row,.mat-sort-header-container, .mat-mdc-table tfoot, .mat-mdc-table thead, .mat-mdc-cell, .mat-mdc-footer-cell, .mat-mdc-header-row, .mat-mdc-row, .mat-mdc-footer-row, .mat-mdc-table .mat-mdc-header-cell {
+  height: 5px !important;
+  text-align: center !important;
+}
+
+::ng-deep.mat-mdc-form-field {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+::ng-deep.mat-sort-header-container{
+  justify-content: center;
+}
+
+
+

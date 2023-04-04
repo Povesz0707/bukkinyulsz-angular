@@ -1,0 +1,62 @@
+<div style=" padding-bottom: 50px; width: 100%" align="center">
+  <mat-card style="background-color: #0000000a">
+    <mat-card-header style="justify-content: center;"><h1><b>Eredmények</b></h1></mat-card-header>
+    <mat-card-content>
+      <div>
+        <div style="width: 100%;text-align-last: start;">
+          <mat-form-field floatLabel="always" appearance="outline" style="width: 300px">
+            <mat-label>Kiválasztott esemény</mat-label>
+            <mat-select [(ngModel)]="this.selectedOldFilter"  (selectionChange)="oldFilterSelect()">
+              <mat-option *ngFor="let filter of filters" [value]="filter" >{{filter.displayText }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div style="width: 100%;text-align-last: start;">
+          <input type="text" (keyup)="doFilter($event)" class="form-control form-control-sm"  placeholder="Keresés">
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort  class="mat-elevation-z1" style="width: 80%">
+          <ng-container matColumnDef="ssz" >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef style="width: 50px">#</th>
+            <td mat-cell *matCellDef="let item"> {{item.ssz}} </td>
+          </ng-container>
+          <ng-container matColumnDef="rsz" >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef >Rsz.</th>
+            <td mat-cell *matCellDef="let item"> {{item.rsz}} </td>
+          </ng-container>
+          <ng-container matColumnDef="nev" >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Név</th>
+            <td mat-cell *matCellDef="let item"> {{item.nev}} </td>
+          </ng-container>
+          <ng-container matColumnDef="ev" >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Szül.én</th>
+            <td mat-cell *matCellDef="let item"> {{item.ev}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tlp" >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef >Település</th>
+            <td mat-cell *matCellDef="let item"> {{item.tlp}} </td>
+          </ng-container>
+          <ng-container matColumnDef="tav" >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef >Táv</th>
+            <td mat-cell *matCellDef="let item"> {{item.tav}} </td>
+          </ng-container>
+          <ng-container matColumnDef="ido" >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef >Menetidő</th>
+            <td mat-cell *matCellDef="let item"> {{item.ido}} </td>
+          </ng-container>
+          <ng-container matColumnDef="action" >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let item">
+              <div style="    display: flex;justify-content: flex-end;">
+                <button type="button" class="btn btn-outline-secondary btn-sm" style="margin-right: 5px" (click)="downloadPdf(item)" ><i class="bi bi-file-pdf"></i></button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="distancesColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: distancesColumns;" ></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

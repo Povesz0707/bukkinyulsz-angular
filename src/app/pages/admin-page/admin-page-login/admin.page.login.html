@@ -1,7 +1,43 @@
+<div style=" padding-bottom: 50px; width: 100%" align="center">
+  <mat-card style="background-color: #0000000a">
+    <mat-card-header style="justify-content: center;"><h1><b>Admin felület</b></h1></mat-card-header>
+    <mat-card-content>
+      <div style="width: 100%;text-align-last: center;" *ngIf="!globalService.storageServices.userStorageService.isAdminLogin()">
+        <div class="row" style="justify-content: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Felhasználónév / E-mail</mat-label>
+              <input  matInput  type="text" [(ngModel)]="username">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="justify-content: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Jelszó</mat-label>
+              <input  matInput  type="password" [(ngModel)]="password">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="justify-content: center;" *ngIf="errorMessage">
+          <div class="col-sm-3">
+            <div class="alert alert-danger" role="alert" style="width: 100%">
+              {{errorMessage}}
+            </div>
+          </div>
+        </div>
+        <div class="row" style="justify-content: center;">
+          <div class="col-sm-3">
+            <button class="btn btn-outline-success btn-sm" type="button" style="width: 100%;" (click)="login()">Bejelentkezés</button>
+          </div>
+        </div>
+
+      </div>
+      <div style="width: 100%;text-align-last: center;" *ngIf="globalService.storageServices.userStorageService.isAdminLogin()">
+        Üdvözlünk az admin felületen
+      </div>
 
 
-<div style="padding-top: 100px; padding-bottom: 50px; width: 100%" align="center">
-  <div style="max-width: 95%">
-    <input type="file" accept="image/png, image/gif, image/jpeg" (change)="onFileSelected($event)">
-  </div>
+    </mat-card-content>
+  </mat-card>
 </div>

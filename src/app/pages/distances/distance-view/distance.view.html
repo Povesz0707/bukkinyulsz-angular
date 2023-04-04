@@ -1,7 +1,4 @@
-<head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.7.0/gpx.min.js"></script>
-</head>
+
 <div mat-dialog-title style="width: 100%;display: flex;padding: 9px 24px 9px;">
   <label style="width: -webkit-fill-available;">{{distance.length}} - {{distance.name}}</label>
   <button type="button" mat-dialog-close class="btn btn btn-light btn-sm bi bi-x-lg"></button>
@@ -82,11 +79,14 @@
       </ul>
     </div>
   </div>
-  <div>
-    {{distance.gpxURL}}
+  <div class="row" style="justify-content: center;">
+    <div class="col-11">
+      <div   id="map" style="height:500px;"></div>
+    </div>
   </div>
-  <div style="height: 300px;" leaflet [leafletOptions]="options">
-  </div>
+
+<!--  <div style="height: 300px;" leaflet [leafletOptions]="options">
+  </div>-->
 <!--  <div    style="height:900px;"></div>-->
   <div class="row" *ngIf="distance.distanceSubsections">
     <div class="col-12">

@@ -67,12 +67,17 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ImportantInformationPage} from "./pages/importantInformation-page/importantInformation.page";
-import {LeafletModule} from "@asymmetrik/ngx-leaflet";
+import {CarouselModule} from "@coreui/angular";
+import {} from "@coreui/icons-angular";
+import {ResultPage} from "./pages/result-page/result.page";
+import {RegistrationPage} from "./pages/registration-page/registration.page";
 
 @NgModule({
   declarations: [
+    RegistrationPage,
     AppComponent,
     MainPage,
+    ResultPage,
     Distance10km,
     DistanceView,
     ConfirmDialog,
@@ -92,7 +97,6 @@ import {LeafletModule} from "@asymmetrik/ngx-leaflet";
     ImportantInformationPage
   ],
   imports: [
-    LeafletModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     UploaderModule,
@@ -119,7 +123,8 @@ import {LeafletModule} from "@asymmetrik/ngx-leaflet";
     MatRadioModule,
     MatChipsModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CarouselModule,
 
   ],
   providers: [

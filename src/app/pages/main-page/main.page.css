@@ -6,8 +6,15 @@
 
 .bottom-right {
   position: absolute;
-  right: 20px;
+  right: 25px;
   bottom: 20px;
+}
+
+.bottom-center{
+  z-index:10;
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
 }
 
 .bottom-left {
@@ -29,6 +36,41 @@ a.tavicon img {
 }
 
 a.tavicon:hover {
-  transform: scale(2);
-  transition-duration:1s;
+  transform: scale(1.5);
+  transition-duration:1.5s;
 }
+
+.banner-text-20{
+  color: #fff; font-size: 20px;text-shadow: -1px 0 20px black, 0 1px black, 1px 0 black, 0 -1px black
+}
+
+.banner-text-default{
+  color: #fff; text-shadow: -1px 0 20px black, 0 1px black, 1px 0 black, 0 -1px black
+}
+
+
+.banner-text-40{
+  color: #fff; font-size: 40px;text-shadow: -1px 0 20px black, 0 1px black, 1px 0 black, 0 -1px black
+}
+
+.carousel.carousel-fade .carousel-item {
+  display: block;
+  opacity: 0;
+  transition: opacity ease-in-out 1s;
+}
+
+.carousel.carousel-fade .carousel-item.active {
+  opacity: 1 !important;
+  transition: opacity ease-in-out 1s;
+}
+.carousel-caption {
+  top: 20px;
+  bottom: auto;
+  right: 5%;
+  left: 5%;
+}
+.carousel-control-next, .carousel-control-prev {
+  width: 5%;
+
+}
+

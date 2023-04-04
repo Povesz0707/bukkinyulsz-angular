@@ -4,10 +4,14 @@ import {Distance} from "../../../model/distance-model/distance";
 import {GlobalService} from "../../../services/global.service";
 import {GeneralUtils} from "../../../utils/general.utils";
 import {ActivatedRoute} from "@angular/router";
-import GPX from 'leaflet-gpx';
-import L, {latLng, tileLayer, control} from "leaflet";
+import * as L from "leaflet";
+import "leaflet-gpx"
 
-//import "./node_modules/leaflet/dist/leaflet.css"
+/*const elevation = require('@raruto/leaflet-elevation/dist/leaflet-elevation.min.js.js')*/
+import * as Lg from "leaflet-gpx"
+
+/*const LG = require('leaflet-gpx')*/
+
 
 
 function downloadURI(uri: any, name: any) {
@@ -31,14 +35,13 @@ export class DistanceView implements OnInit{
   @ViewChild('map')
   private mapContainer: ElementRef<HTMLElement>;
   ngOnInit(): void {
-
     this.urlId = Number(this.route.snapshot.paramMap.get('id'));
     this.getData()
+
   }
 
   getData(){
     var incomingId:number | undefined
-
     if(this.data && this.data.id){
       incomingId = this.data.id;
     }
@@ -48,7 +51,7 @@ export class DistanceView implements OnInit{
     if(incomingId)
     this.globalService.distanceService.get(incomingId).subscribe(value => {
       this.distance = value;
-      // this.getMap()
+      this.getMap(this.distance.gpxURL)
     })
   }
 
@@ -74,57 +77,42 @@ export class DistanceView implements OnInit{
     request.send();
   }
 
-  gpxURL = 'https://bukkinyulsz.hu/static/bukkinyulsz/gpx/bukkinyulsz_60.gpx';
-  gpx: L.GPX = new L.GPX(this.gpxURL, {async: true})
+  getMap(gpxURL?: string) {
+    if (gpxURL) {
+      var map = new L.Map('map')
 
-  options = {
-    layers: [
-      tileLayer('http://a.map.turistautak.hu/tiles/turistautak-domborzattal/{z}/{x}/{y}.png', { attribution: '...' ,
-        bounds: this.gpx.getBounds()
-        }),
+      L.tileLayer('http://a.map.turistautak.hu/tiles/turistautak-domborzattal/{z}/{x}/{y}.png', {
+        maxZoom: 15,
+        minZoom: 8,
+        attribution: '&copy; <ahref="https://turistautak.hu/">Turistautak.hu',}).addTo(map);
+      var g = new L.GPX(gpxURL, {
+        async: true,
+        marker_options: {
+          wptIconUrls: {'':'./assets/checkpoint.png'},
+          startIconUrl: '',
+          endIconUrl: '',
+          shadowUrl:''
+        },
+      })
+      g.on('loaded', function(e) {
+        map.fitBounds(e.target.getBounds());
+      });
+      g.addTo(map)
+/*
+/*      var elevation_options = {theme: "lightblue-theme",}
+      var controlElevation = L.control.elevation(elevation_options).addTo(map);*/
+     // g.addTo(map)
+/*      var el = new L.control.elevation({
 
-    ],
-    zoom: 10,
-    center: latLng(47.966913, 20.526699),
-    control:{
+      });*/
+  /*    var el = L.control.elevation({
 
+      });*/
+      // el.addTo(map);
+/*      L.geoJson(g,{
+        onEachFeature: el.addData.bind(el) //working on a better solution
+      }).addTo(map);*/
     }
-
-
-  };
-
-  getMap(){
-    var map = L.map('map');
-    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>'
-    }).addTo(map);
-    //https://bukkinyulsz.hu/static/bukkinyulsz/gpx/bukkinyulsz_60.gpx
-    var gpx = 'https://bukkinyulsz.hu/static/bukkinyulsz/gpx/bukkinyulsz_60.gpx';
-    new L.GPX(gpx, {async: true}).on('loaded', function(e) {
-      map.fitBounds(e.target.getBounds());
-    }).addTo(map);
-/*    g.on('loaded', function(e) {
-      map.fitBounds(e.target.getBounds());
-    });
-    g.on("addline",function(e){
-      $.each(e.line, function (k, v) {
-        el.addData(v);
-      });
-    });*/
-
-    //L.control.fullscreen().addTo(map);
-
-/*    var el = L.control.elevation();
-    el.addTo(map);
-    g.on('loaded', function(e) {
-      map.fitBounds(e.target.getBounds());
-    });
-    g.on("addline",function(e){
-      $.each(e.line, function (k, v) {
-        el.addData(v);
-      });
-    });
-    g.addTo(map);*/
   }
 
 }

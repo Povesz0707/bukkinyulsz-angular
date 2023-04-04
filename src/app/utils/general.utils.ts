@@ -6,7 +6,10 @@ import {formatDate} from "@angular/common";
 import {Distance} from "../model/distance-model/distance";
 import {DistanceSubSection} from "../model/distance-subSection-model/distance.subSection.model";
 import {BaseModel} from "../model/base-model/base.model";
-
+export interface RegistrationType{
+  name:string,
+  displayValue:string
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -79,6 +82,12 @@ export class GeneralUtils{
     return sum
   }
 
+  getRegistrationTypes(): RegistrationType[] {
+    var types: RegistrationType[] = []
+    types.push({name: 'SIMPLE', displayValue: 'Egyéni'})
+    types.push({name: 'MULTI', displayValue: 'Csoportos'})
+    return types
+  }
 
 
   sumAllElevationByDistance(distance?:Distance){

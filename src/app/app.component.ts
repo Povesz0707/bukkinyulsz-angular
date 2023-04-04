@@ -7,6 +7,7 @@ import * as Upload from "upload-js-full";
 import {ExpandedTourEvent} from "./pages/main-page/main.page";
 import {TourEvent} from "./model/tourEvent-model/tourEvent.model";
 import {fromEvent, Observable} from "rxjs";
+import {RegistrationPage} from "./pages/registration-page/registration.page";
 
 
 @Component({
@@ -20,11 +21,15 @@ export class AppComponent implements OnInit{
   isRegistrationTimeBoolean: undefined | boolean;
   tourEvents:TourEvent[] = []
   expandedTourEvents: ExpandedTourEvent[] = []
+  availablePreRegistrations: ExpandedTourEvent[] = []
   scrollBackButtonVisible: boolean = false;
 
+  registrationIsActive(tourEvent: TourEvent){
+    return this.generalUtils.dateBetween(tourEvent.applicationFrom, tourEvent.applicationTo)
+  }
 
-  constructor(private globalService: GlobalService, public generalUtils : GeneralUtils) {
 
+  constructor(public globalService: GlobalService, public generalUtils : GeneralUtils) {
   }
 
 
@@ -45,11 +50,14 @@ export class AppComponent implements OnInit{
           tourEvent: tourEvent,
           distances: tourEventDistances
         }
+        if(this.registrationIsActive(tourEvent)){
+          this.availablePreRegistrations.push(expandedTourEvent)
+        }
         this.expandedTourEvents.push(expandedTourEvent)
       })
 
 
-      /*      if(this.generalUtils.dateBetween(value.applicationFrom, value.applicationTo)){
+/*            if(this.generalUtils.dateBetween(value.applicationFrom, value.applicationTo)){
               this.getRegistrationRemainingTime(value.applicationTo)
             }*/
     })
@@ -69,12 +77,19 @@ export class AppComponent implements OnInit{
     this.getDistancesList()
   }
   scrollEnvet = (event: any) => {
-    const pos = event.target.scrollingElement.scrollTop;
-    if(pos) this.scrollBackButtonVisible = true
-    else this.scrollBackButtonVisible = false
+    if(event.target.scrollingElement){
+      const pos = event.target.scrollingElement.scrollTop;
+      if(pos) this.scrollBackButtonVisible = true
+      else this.scrollBackButtonVisible = false
+    }
+
   }
 
   scrollBackToTop(){
     window.scrollTo({behavior:'smooth',top:0,left:0})
+  }
+
+  openRegistrationPage(item: TourEvent) {
+    this.generalUtils.openDialog100vw100vh(RegistrationPage, item)
   }
 }
