@@ -1,0 +1,31 @@
+
+<div class="row" style="align-items: flex-start;">
+  <div *ngIf="newses.length > 0" class="col-sm-12">
+    <div style="width: 100%; padding: 10px; text-align: -webkit-center;">
+      <div [id]="'news_'+item.id" class="card" *ngFor="let item of newses" style=" box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 90%; background-color: #fff; padding: 10px; margin: 20px">
+        <h1 style="text-align: -webkit-center; " class="card-title"><b>{{item.title}}</b></h1>
+        <h6 *ngIf="item.subTitle" style="text-align: -webkit-center;" class="card-subtitle mb-2 text-muted">{{ item.subTitle }}</h6>
+        <h6 style="text-align: -webkit-center;" class="card-subtitle mb-2 text-muted">{{ generalUtils.getLocaleDateTimeString(item.inserted) }}</h6>
+        <div class="card-body" style="display: flex; text-align: -webkit-center;">
+          <div style="text-align: -webkit-center;">
+            <img *ngIf="item.imageURL" [src]="item.imageURL" height="150">
+            <p class="ng-scope">{{item.content}}</p>
+          </div>
+        </div>
+        <div style="width: 100%; text-align: end" >
+          <button type="button" class="btn btn-outline-primary btn-sm"  (click)="backToNewses()" ><i class="bi bi-arrow-left-circle"></i>   Vissza az összes hírhez  </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+

@@ -5,6 +5,9 @@ import {GeneralUtils} from "../../utils/general.utils";
 import {DistanceView} from "../distances/distance-view/distance.view";
 import {TourEvent} from "../../model/tourEvent-model/tourEvent.model";
 import {Route} from "@angular/router";
+import {Sponsor} from "../../model/sponsor-model/sponsor.model";
+import {Tender} from "../../model/render-model/tender.model";
+import {News} from "../../model/news-model/news.model";
 
 export interface ExpandedTourEvent{
   tourEvent:TourEvent,
@@ -26,13 +29,25 @@ export class MainPage implements OnInit{
   availablePreRegistrations: ExpandedTourEvent[] = []
   remainingTime: string;
 
+  newses: News[] = []
+
 
 
 
   ngOnInit(): void {
     this.getDistancesList()
-
+    this.getTopNews()
   }
+
+
+
+  getTopNews(){
+    this.globalService.newsService.listActiveTop3().subscribe(value => {
+      this.newses = value;
+    })
+  }
+
+
   registrationIsActive(tourEvent: TourEvent){
     return this.generalUtils.dateBetween(tourEvent.applicationFrom, tourEvent.applicationTo)
   }
@@ -54,6 +69,7 @@ export class MainPage implements OnInit{
           tourEvent: tourEvent,
           distances: tourEventDistances
         }
+        console.log(expandedTourEvent.tourEvent.bannerImage)
 
         this.expandedTourEvents.push(expandedTourEvent)
       })
@@ -86,7 +102,15 @@ export class MainPage implements OnInit{
     this.generalUtils.openDialog100vw100vh(DistanceView, distance)
   }
 
-  redirectTo(url: string) {
+  redirectTo(url: string | undefined) {
+    if(url == undefined) return
     window.location.href = url;
   }
+  redirectToNews(url: number | undefined) {
+    if(url == undefined) return
+    window.location.href = "#/news/"+url
+  }
+
+
+
 }

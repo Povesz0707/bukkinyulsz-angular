@@ -38,6 +38,7 @@ export class UserStorageService{
 
   public isAdmin(): boolean {
     if(this.getUser() != undefined) {
+      console.log()
       return !!this.getUser().roles.includes('ADMIN_ROLE');
     }
     return false;
@@ -48,7 +49,8 @@ export class UserStorageService{
   }
 
   isAdminLogin(){
-    return this.isAdmin() &&! this.tokenExpired()
+    console.log(this.isAdmin(), !this.tokenExpired())
+    return this.isAdmin() && !this.tokenExpired()
   }
 
 

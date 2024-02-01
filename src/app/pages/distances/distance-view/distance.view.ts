@@ -28,7 +28,6 @@ function downloadURI(uri: any, name: any) {
   styleUrls: ['distance.view.css']
 })
 export class DistanceView implements OnInit{
-  @Input('distance_id') distanceId: number
   distance: Distance = new Distance()
   urlId: number;
 

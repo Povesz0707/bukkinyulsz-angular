@@ -1,34 +1,394 @@
-<div mat-dialog-title style="width: 100%;display: flex;padding: 9px 24px 9px;">
-  <label style="width: -webkit-fill-available;">{{tourEvent.name}} - {{generalUtils.getYearString(tourEvent.dateOfEvent)}}</label>
-  <button type="button" mat-dialog-close class="btn btn btn-light btn-sm bi bi-x-lg"></button>
-</div>
-<mat-dialog-content>
-  <div style=" padding: 20px">
-    <div class="row" style="justify-content: center;" >
-      <mat-card style="background-color: #fff; margin: 10px" *ngFor="let item of registrations; let i = index" [attr.data-index]="i">
-        <mat-card-header style="justify-content: left;"><h1><b>{{(i+1)}}. regisztráló</b></h1></mat-card-header>
-        <mat-card-content>
-          <div class="row" style="align-items: center;">
-            <div class="col-sm-12">
-              <mat-form-field appearance="outline" floatLabel="always" style="width: 100%">
-                <mat-label>Név</mat-label>
-                <input matInput  type="text"  [(ngModel)]="item.name">
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row" style="align-items: center;">
-            <div class="col-sm-12">
-              <mat-form-field appearance="outline" floatLabel="always" style="width: 100%">
-                <mat-label>Email cím</mat-label>
-                <input matInput  type="text"  [(ngModel)]="item.email">
-              </mat-form-field>
-            </div>
-          </div>
-
-        </mat-card-content>
-      </mat-card>
-      <button style="width: 100%; margin-top: 20px" class="btn btn-outline-success btn-sm" type="button" data-toggle="dropdown" (click)="addNewRegistration()" >Új registráció hozzáadása</button>
-
-    </div>
+<div *ngIf="loading" class="loading" style="" >
+  <div style="display: flex" class="spinner-border text-success" role="status">
+    <span class="sr-only">Loading...</span>
   </div>
-</mat-dialog-content>
+</div>
+<div *ngIf="!loading" style="margin: 10px;">
+
+
+  <h1>{{tourEvent.name}} {{generalUtils.getYearString(tourEvent.dateOfEvent)}} nevezés</h1>
+  <mat-stepper orientation="vertical" [linear]="true" #stepper (selectionChange)="onFormSubmit()">
+    <mat-step [stepControl]="teamForm" label="Nevező(k) adatai">
+      <div class="row" style="text-align: -webkit-center; width: 100%">
+        <label style="color: red" *ngIf="employees.length == 0">* A nevetettek száma nem lehet 0-a.</label>
+        <label>Rögzített nevezők száma: {{employees.length}}</label>
+      </div>
+      <form [formGroup]="teamForm" (ngSubmit)="onFormSubmit()">
+        <div class="all-emp" style="padding: 10px">
+          <div formArrayName="employees" style="margin: 10px">
+
+            <div *ngFor="let emp of employees.controls; let i = index" [formGroupName]="i" class="employee" >
+              <mat-expansion-panel  [expanded]="expansionPanelStep === i" (opened)="expansionPanelStep = i" style="margin: 5px" >
+                <mat-expansion-panel-header >
+                  <mat-panel-title>
+                    <label>Nevező: {{getName(i) }}</label>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <label *ngIf="employees.controls[i].get('distance')?.value">
+                      {{employees.controls[i].get('distance')?.value.name }} {{employees.controls[i].get('distance')?.value.length}}
+                    </label>
+                  </mat-panel-description>
+                  <i style="-webkit-text-stroke-width: thick; align-self: center; flex-grow: .1;" [matTooltip]="generalUtils.getValidationBooleanToTooltip(hasError(i))" [class]="generalUtils.getBooleanToClass(hasError(i))"></i>
+                </mat-expansion-panel-header>
+                <div class="row" style="align-items: center;">
+                  <div class="col-sm-6">
+                    <mat-form-field appearance="fill" floatLabel="always" style="width: 100%;">
+                      <mat-label>Vezetéknév</mat-label>
+                      <input  matInput  type="text" formControlName="lastName" >
+                      <mat-error *ngIf="employees.controls[i].get('lastName')?.hasError('required')">
+                        A vezetéknév megadása <b>kötelező</b>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-6">
+                    <mat-form-field appearance="fill" floatLabel="always" style="width: 100%;">
+                      <mat-label>Keresztnév</mat-label>
+                      <input  matInput  type="text" formControlName="firstName" >
+                      <mat-error *ngIf="employees.controls[i].get('firstName')?.hasError('required')">
+                        A keresztnév megadása <strong>kötelező</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row" style="align-items: center;">
+                  <div class="col-sm-6">
+                    <mat-form-field appearance="fill" floatLabel="always" style="width: 100%;">
+                      <mat-label>Email</mat-label>
+                      <input  matInput  type="text" formControlName="email" >
+                      <mat-error *ngIf="employees.controls[i].get('email')?.hasError('email') && !employees.controls[i].get('email')?.hasError('required')">
+                        A megadott email cím helytelen
+                      </mat-error>
+                      <mat-error *ngIf="employees.controls[i].get('email')?.hasError('required')">
+                        Email megadása <strong>kötelező</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-6">
+                    <mat-form-field appearance="fill" floatLabel="always" style="width: 100%;">
+                      <mat-label>Telefonszám</mat-label>
+                      <input  matInput  type="number" formControlName="phoneNumber" >
+                      <mat-error *ngIf="employees.controls[i].get('phoneNumber')?.hasError('required')">
+                        A telefonszám megadása <strong>kötelező</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row" style="align-items: center;">
+                  <div class="col-sm-6">
+                    <mat-form-field appearance="fill" floatLabel="always" style="width: 100%;">
+                      <mat-label>Születési idő</mat-label>
+                      <input  matInput [max]="generalUtils.MAX_DATE" type="date"  formControlName="birthDay" >
+                      <mat-error *ngIf="employees.controls[i].get('birthDay')?.hasError('required')">
+                        Születési idő megadása <strong>kötelező</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-6">
+                    <mat-form-field appearance="fill" floatLabel="always" style="width: 100%;">
+                      <mat-label>Név</mat-label>
+                      <input  matInput  type="text" formControlName="livingPlace" >
+                      <mat-error *ngIf="employees.controls[i].get('livingPlace')?.hasError('required')">
+                        A lakhely megadása <strong>kötelező</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row" style="align-items: center;">
+                  <mat-form-field floatLabel="always" appearance="fill" *ngIf="distancesList != undefined" style="width: 100%">
+                    <mat-label>Táv választás</mat-label>
+                    <mat-select formControlName="distance"  >
+                      <mat-option *ngFor="let item of distancesList" [value]="item" >{{item.name }} {{item.length}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="employees.controls[i].get('distance')?.hasError('required')">
+                      A táv megadása <strong>kötelező</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="row" style="align-items: center;">
+                  <div class="col-sm-3">
+                    <mat-checkbox color="primary" formControlName="needShirt" class="example-margin">Kérnék pólót</mat-checkbox>
+                  </div>
+                  <div class="col-sm-3" *ngIf="employees.controls[i].get('needShirt')?.value == true">
+                    <mat-form-field floatLabel="always" appearance="outline" *ngIf="tourEvent.shirts != undefined" style="width: 100%">
+                      <mat-label>Póló választás</mat-label>
+                      <mat-select formControlName="shirt"  >
+                        <mat-option *ngFor="let shirt of tourEvent.shirts" [value]="shirt" >{{getShirtText(shirt)}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row" style="align-items: center;">
+                  <div class="col-sm-3">
+                    <mat-checkbox color="primary" formControlName="needFinishFood" class="example-margin">Kérnék a célbal éréskor ellátást</mat-checkbox>
+                  </div>
+                  <div class="col-sm-3" *ngIf="employees.controls[i].get('needFinishFood')?.value == true">
+                    <label >*A célbal éréskor az ellátást költsége: {{tourEvent.finishFoodPrice}} Ft</label>
+                  </div>
+                </div>
+
+
+                <p>
+                  <button  style="margin-right: 10px" class="btn btn-outline-secondary btn-sm" type="button" (click)="resetSubForm(i)">Nevezés adatok visszaállítása</button>
+                  <button class="btn btn-outline-danger btn-sm" type="button" (click)="deleteEmployee(i)">Törlés</button>
+                </p>
+              </mat-expansion-panel>
+
+
+            </div>
+              <div class="row" style="justify-content: center;margin-top: 10px" >
+                <div class="col-sm-6">
+                  <button class="btn btn-outline-success btn-sm" style="width: 100%" type="button" (click)="addEmployee()">Új nevező hozzáaadása</button>
+                </div>
+              </div>
+              <div class="row" style="justify-content: center; margin-top: 10px">
+                <div class="col-sm-3">
+                  <button class="btn btn-outline-secondary btn-sm" style="width: 100%" type="button" (click)="resetTeamForm()">Összes nevezés visszaállítása</button>
+                </div>
+                <div class="col-sm-3">
+                  <button class="btn btn-outline-danger btn-sm" style="width: 100%" type="button" (click)="deleteAllTeamMember()">Összes nevezés törlése</button>
+                </div>
+              </div>
+
+
+          </div>
+        </div>
+        <div align="end">
+<!--          <button class="btn btn-outline-secondary btn-sm" matStepperPrevious>Vissza</button>-->
+          <button class="btn btn-outline-success btn-sm" matStepperNext>Tovább</button>
+        </div>
+
+
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="billingDetailsFormGroup" label="Számázási adatok">
+      <form [formGroup]="billingDetailsFormGroup">
+        <mat-card>
+          <mat-card-content>
+            <div class="row" style="align-items: center;">
+              <div class="col-sm-6">
+              <mat-form-field floatLabel="always" appearance="outline" *ngIf="distancesList != undefined" style="width: 100%">
+                <mat-label>Számlázás típusa</mat-label>
+                <mat-select formControlName="billingType"  (selectionChange)="changeTypeSelection()">
+                  <mat-option  value="PERSONAL" >Magánszemély</mat-option>
+                  <mat-option  value="COMPATY" >Cég</mat-option>
+                </mat-select>
+                <mat-error *ngIf="billingDetailsFormGroup.get('billingType')?.hasError('required')">
+                  A számlázás típusának megadása <strong>kötelező</strong>
+                </mat-error>
+              </mat-form-field>
+              </div>
+              <div class="col-sm-6" *ngIf="billingDetailsFormGroup.get('billingType')?.value == 'PERSONAL'">
+                <mat-form-field floatLabel="always" appearance="outline" *ngIf="distancesList != undefined" style="width: 100%">
+                  <mat-label>Megegyezik egy már rögzített személlyel</mat-label>
+                  <mat-select (selectionChange)="changeSelectedBillingUser($event)">
+                    <mat-option *ngFor="let item of registrationUserModels" [value]="item" >{{item.lastName +' ' +item.firstName}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6" *ngIf="billingDetailsFormGroup.get('billingType')?.value == 'COMPATY'">
+                <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                  <mat-label>Adószám</mat-label>
+                  <input matInput mask="00000000-0-00" placeholder="00000000-0-00" type="text" formControlName="taxNumber">
+                  <mat-error *ngIf="billingDetailsFormGroup.get('taxNumber')?.hasError('required')">
+                    Az adószám megadása <strong>kötelező</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row" style="align-items: center;">
+              <div class="col-sm-6">
+              <mat-form-field floatLabel="always" appearance="outline" *ngIf="distancesList != undefined" style="width: 100%">
+                <mat-label>Ország</mat-label>
+                <input type="text" matInput formControlName="country" [matAutocomplete]="auto">
+                <mat-error *ngIf="billingDetailsFormGroup.get('country')?.hasError('required')">
+                  Az ország megadása <strong>kötelező</strong>
+                </mat-error>
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCountryFn">
+                  <mat-option *ngFor="let option of countryFilteredOptions | async" [value]="option">
+                    {{option.name}} ({{option.code3}})
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              </div>
+            </div>
+            <div class="row" style="align-items: center;">
+              <div class="col-sm-6">
+                <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                  <mat-label>Vezetéknév</mat-label>
+                  <input  matInput  type="text" formControlName="lastName" >
+                  <mat-error *ngIf="billingDetailsFormGroup.get('lastName')?.hasError('required')">
+                    A vezetéknév megadása <strong>kötelező</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6">
+                <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                  <mat-label>Keresztnév</mat-label>
+                  <input  matInput  type="text" formControlName="firstName" >
+                  <mat-error *ngIf="billingDetailsFormGroup.get('firstName')?.hasError('required')">
+                    A keresztnév megadása <strong>kötelező</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row" style="align-items: center;">
+              <div class="col-sm-6">
+                <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                  <mat-label>Email</mat-label>
+                  <input  matInput  type="text" formControlName="email" >
+                  <mat-error *ngIf="billingDetailsFormGroup.get('email')?.hasError('email') && !billingDetailsFormGroup.get('email')?.hasError('required')">
+                    A megadott email cím helytelen
+                  </mat-error>
+                  <mat-error *ngIf="billingDetailsFormGroup.get('email')?.hasError('required')">
+                    Email megadása <strong>kötelező</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6">
+                <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                  <mat-label>Telefonszám</mat-label>
+                  <input  matInput  type="number" formControlName="phoneNumber" >
+                  <mat-error *ngIf="billingDetailsFormGroup.get('phoneNumber')?.hasError('required')">
+                    A telefonszám megadása <strong>kötelező</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row" style="align-items: center;">
+              <div class="col-sm-4">
+                <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                  <mat-label>Irányítószám</mat-label>
+                  <input  matInput  type="text" formControlName="zipCode" >
+                  <mat-error *ngIf="billingDetailsFormGroup.get('zipCode')?.hasError('required')">
+                    Az irányítószám megadása <strong>kötelező</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-4">
+                <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                  <mat-label>Város</mat-label>
+                  <input  matInput  type="text" formControlName="city" >
+                  <mat-error *ngIf="billingDetailsFormGroup.get('city')?.hasError('required')">
+                    A város megadása <strong>kötelező</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-4">
+                <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+                  <mat-label>Utca,házszám</mat-label>
+                  <input  matInput  type="text" formControlName="address" >
+                  <mat-error *ngIf="billingDetailsFormGroup.get('address')?.hasError('required')">
+                    Az utca,házszám megadása <strong>kötelező</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <div align="end">
+          <button style="margin-right: 10px" class="btn btn-outline-secondary btn-sm" matStepperPrevious>Vissza</button>
+          <button class="btn btn-outline-success btn-sm" matStepperNext>Tovább</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="summaryFormGroup" label="Összegzés">
+      <div style="margin: 10px">
+      <table class="table table-sm table-borderless">
+        <thead>
+        <tr>
+          <th>Név</th>
+          <th >Táv</th>
+          <th >Táv egységár</th>
+          <th >Póló</th>
+          <th >Póló egységár</th>
+          <th >Ellátás</th>
+          <th >Ellátás egységár</th>
+          <th >Összegzés</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of registrationUserModels">
+          <td>{{item.lastName}} {{item.firstName}}</td>
+          <td>{{item?.distance?.name}} - {{item?.distance?.length}}</td>
+          <td>{{item?.distance?.price}} Ft</td>
+          <td>{{getShirtText(item?.shirt) ? getShirtText(item?.shirt) : 'Nem'}}</td>
+          <td>{{item?.shirt?.price ? item?.shirt?.price+ ' Ft' : '-'}}</td>
+          <td>{{item?.needFinishFood ? 'Igen' : 'Nem'}}</td>
+          <td>{{item?.needFinishFood ? item.finishFoodPrice + ' Ft' : '-'}}</td>
+          <td><b>{{sumRow(item)}} Ft</b></td>
+        </tr>
+        <tr>
+          <td><b>Összegzés</b></td>
+          <td></td>
+          <td><b>{{sumPrices()}} Ft</b></td>
+          <td></td>
+          <td><b>{{sumShirtsPrices()}} Ft</b></td>
+          <td></td>
+          <td>{{sumFoodPrices()}} Ft</td>
+          <td><b>{{sumFull()}} Ft</b></td>
+        </tr>
+        </tbody>
+      </table>
+        <br>
+        <table class="table table-sm table-borderless" >
+          <thead>
+          <tr>
+            <th colspan="2">Számlázási adatok</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><b>Számlázás típusa</b></td>
+            <td>{{getBillingData('billingType') }}</td>
+          </tr>
+          <tr *ngIf="getBillingData('taxNumber')">
+            <td><b>Adószám</b></td>
+            <td>{{getBillingData('taxNumber') }}</td>
+          </tr>
+          <tr>
+            <td><b>Név</b></td>
+            <td>{{getBillingData('lastNames') }} {{getBillingData('firstName')}}</td>
+          </tr>
+          <tr>
+            <td><b>Email</b></td>
+            <td>{{getBillingData('email') }}</td>
+          </tr>
+          <tr>
+            <td><b>Telefonszám</b></td>
+            <td>{{getBillingData('phoneNumber') }}</td>
+          </tr>
+          <tr>
+            <td><b>Ország</b></td>
+            <td>{{getBillingData('country')?.name }} ({{getBillingData('country')?.code3}})</td>
+          </tr>
+          <tr>
+            <td><b>Cím</b></td>
+            <td>{{getBillingData('zipCode') }}, {{getBillingData('city')}} {{getBillingData('address')}} </td>
+          </tr>
+          </tbody>
+        </table>
+      <form [formGroup]="summaryFormGroup">
+
+        <div align="end">
+          <mat-checkbox color="primary" formControlName="acceptFirs" class="example-margin">Elolvastam és elfogadom az <a class="link-success" href="https://www.w3schools.com/">Adatkezelési szabályzat</a> </mat-checkbox>
+          <br>
+          <mat-error *ngIf="summaryFormGroup.get('acceptFirs')?.hasError('required')">*A folytatáshoz el kell fogadnia az Adatkezelési szabályzat</mat-error>
+
+          <mat-checkbox color="primary" formControlName="acceptSecound" class="example-margin">Elolvastam és elfogadom az <a class="link-success" href="https://www.w3schools.com/">Általános szerződési feltételeket</a> </mat-checkbox>
+          <br>
+          <mat-error *ngIf="summaryFormGroup.get('acceptSecound')?.hasError('required')">*A folytatáshoz el kell fogadnia az Általános szerződési feltételeket</mat-error>
+
+          <button style="margin-right: 10px" class="btn btn-outline-secondary btn-sm" matStepperPrevious>Vissza</button>
+          <button type="submit" class="btn btn-outline-success btn-sm" (click)="validateSummary()" >Tovább az online fizetéshez</button>
+        </div>
+
+      </form>
+      </div>
+    </mat-step>
+
+  </mat-stepper>
+
+
+</div>

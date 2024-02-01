@@ -39,6 +39,21 @@ export class GeneralUtils{
     return 'Nincs meghatározva'
   }
 
+  isEmpty(s?:string){
+    if(s == undefined || s == null) return true;
+    if(s.trim().length == 0) return true;
+    return false;
+  }
+
+  getHUNTextIsEmpty(s?:string){
+    return this.getBooleanToTooltip(!this.isEmpty(s));
+  }
+
+  getValidationBooleanToTooltip(b?:boolean){
+    if(b == true) return 'Helyesen kitöltött'
+     return 'Hibás kitöltés'
+  }
+
   openDialog100w(dialogComponent: any, data: any){
     return this.dialog.open(dialogComponent, {data: data, width: '100%'});
   }
@@ -100,6 +115,12 @@ export class GeneralUtils{
     return sum
   }
 
+  getSubstring(s:string | undefined, n: number){
+    if(s == undefined) return
+    if(s.length < n) return s;
+    return s.slice(0,n) + "...";
+  }
+
 
 
   getSublistDistanceSum(itemList?:any[], item?: any){
@@ -157,6 +178,7 @@ export class GeneralUtils{
     }
     return ''
   }
+
   weekday = ["Vasárnap","Hétfő","Kedd","Szerda","Csütörtök","Péntek","Szombat"];
   getLocaleDateTimeString(d?: Date){
     if(d == undefined) return ''

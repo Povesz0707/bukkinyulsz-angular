@@ -3,7 +3,7 @@
   <button type="button" mat-dialog-close class="btn btn btn-light btn-sm bi bi-x-lg"></button>
 </div>
 <mat-dialog-content>
-  <mat-tab-group >
+  <mat-tab-group color="primary">
     <mat-tab  label="Álltalános adatok">
       <div style=" padding: 20px">
         <div class="row" style="align-items: center;">
@@ -53,6 +53,23 @@
               <input  matInput  type="text" [(ngModel)]="tourEvent.placeOfEvent">
             </mat-form-field>
           </div>
+
+        </div>
+        <div class="row" style="align-items: center;">
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+            <mat-label>Megrendezés helyének Facebook linkje</mat-label>
+            <input  matInput  type="text" [(ngModel)]="tourEvent.placeOfEvent">
+          </mat-form-field>
+        </div>
+        </div>
+        <div class="row" style="align-items: center;">
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+            <mat-label>Megrendezés helyének Goole Maps linkje</mat-label>
+            <input  matInput  type="text" [(ngModel)]="tourEvent.placeOfEvent">
+          </mat-form-field>
+        </div>
         </div>
         <div class="row" style="align-items: center;">
           <div class="col-sm-3">

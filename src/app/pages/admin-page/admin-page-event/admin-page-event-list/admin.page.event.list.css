@@ -1,5 +1,5 @@
 
-.dropdown:hover .dropdown-menu {
+/*.dropdown:hover .dropdown-menu {
   display: block;
   margin-top: 0;
 }
@@ -27,7 +27,13 @@
 
 ::ng-deep.mat-sort-header-container{
   justify-content: center;
-}
+}*/
+
+
+/*::ng-deep.mat-mdc-checkbox-ripple, .mdc-checkbox__ripple{
+  position: unset !important;
+  background: unset !important;
+}*/
 
 
 

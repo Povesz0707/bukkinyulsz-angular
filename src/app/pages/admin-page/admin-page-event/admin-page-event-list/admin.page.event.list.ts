@@ -13,7 +13,7 @@ import {
 import {AdminPageEventDialog, AdminPageEventDialogData} from "../admin-page-event-dialog/admin.page.event.dialog";
 
 @Component({
-  styleUrls:['admin.page.event.list.css'],
+  styleUrls:['admin.page.event.list.css', './../../../../app.component.css'],
   templateUrl:'admin.page.event.list.html',
   selector:'admin-page-event-list'
 })

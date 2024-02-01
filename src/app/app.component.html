@@ -19,12 +19,14 @@
       <li class="nav-item dropdown" *ngIf="availablePreRegistrations.length >0">
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">Nevezés</a>
         <div class="dropdown-menu mainMenu" aria-labelledby="navbarDropdown">
-          <a class="nav-item dropdown-item" *ngFor="let item of availablePreRegistrations" (click)=openRegistrationPage(item.tourEvent)>{{item.tourEvent.name}} - {{generalUtils.getYearString(item.tourEvent.dateOfEvent)}} </a>
+          <a class="nav-item dropdown-item" *ngFor="let item of availablePreRegistrations" routerLink="registration/{{item.tourEvent.id}}" >{{item.tourEvent.name}} - {{generalUtils.getYearString(item.tourEvent.dateOfEvent)}} </a>
         </div>
       </li>
       <li class="nav-item" *ngIf="isRegistrationTimeBoolean"><a class="nav-link" href="https://bukkinyulsz.hu/event/tt2022/nevezes">Nevezés</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/importantInformation" routerLinkActive="active">Fontos tudnivalók</a></li>
-      <li class="nav-item "><a class="nav-link"  routerLink="/resultPage" routerLinkActive="active">Eredmények</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="importantInformation" routerLinkActive="active">Fontos tudnivalók</a></li>
+      <li class="nav-item "><a class="nav-link"  routerLink="resultPage" routerLinkActive="active">Eredmények</a></li>
+      <li class="nav-item "><a class="nav-link"  routerLink="newses" routerLinkActive="active">Hírek</a></li>
+      <li class="nav-item "><a class="nav-link"  routerLink="galery" routerLinkActive="active">Galéria</a></li>
 <!--      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="https://bukkinyulsz.hu/" id="navbarDropdownEredmenyek" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Eredmények
@@ -42,13 +44,17 @@
           <b>ADMIN FELÜLET</b>
         </a>
         <div class="dropdown-menu mainMenu" aria-labelledby="navbarDropdown">
-          <a class="nav-item dropdown-item " routerLink="/admin-page/login" routerLinkActive="active" *ngIf="!globalService.storageServices.userStorageService.isLoggedIn()">Bejelentkezés</a>
-          <a class="nav-item dropdown-item " routerLink="/admin-page/login" routerLinkActive="active" (click)="globalService.storageServices.userStorageService.signOut()" *ngIf="globalService.storageServices.userStorageService.isLoggedIn()">Kijelentkezés</a>
+          <a class="nav-item dropdown-item " routerLink="admin-page/login" routerLinkActive="active" *ngIf="!globalService.storageServices.userStorageService.isLoggedIn()">Bejelentkezés</a>
+          <a class="nav-item dropdown-item " routerLink="admin-page/login" routerLinkActive="active" (click)="globalService.storageServices.userStorageService.signOut()" *ngIf="globalService.storageServices.userStorageService.isLoggedIn()">Kijelentkezés</a>
             <div class="dropdown-divider"></div>
-            <a class="nav-item dropdown-item" routerLink="/admin-page/event" routerLinkActive="active">Események kezelése</a>
-            <a class="nav-item dropdown-item" routerLink="/admin-page/distances" routerLinkActive="active">Távok kezelése</a>
-            <a class="nav-item dropdown-item" routerLink="/admin-page/subSection" routerLinkActive="active">Szakaszok kezelése</a>
-            <a class="nav-item dropdown-item" routerLink="/admin-page/checkpoint" routerLinkActive="active">Ellenőrzőpontok kezelése</a>
+            <a class="nav-item dropdown-item" routerLink="admin-page/event" routerLinkActive="active">Események kezelése</a>
+            <a class="nav-item dropdown-item" routerLink="admin-page/distances" routerLinkActive="active">Távok kezelése</a>
+            <a class="nav-item dropdown-item" routerLink="admin-page/subSection" routerLinkActive="active">Szakaszok kezelése</a>
+            <a class="nav-item dropdown-item" routerLink="admin-page/checkpoint" routerLinkActive="active">Ellenőrzőpontok kezelése</a>
+            <a class="nav-item dropdown-item" routerLink="admin-page/sponsor" routerLinkActive="active">Támogatók kezelése</a>
+            <a class="nav-item dropdown-item" routerLink="admin-page/tender" routerLinkActive="active">Pályázatok kezelése</a>
+            <a class="nav-item dropdown-item" routerLink="admin-page/news" routerLinkActive="active">Hírfolyam kezelése</a>
+            <a class="nav-item dropdown-item" routerLink="admin-page/imageGalery" routerLinkActive="active">Képgaléria kezelése</a>
         </div>
       </li>
     </ul>
@@ -57,11 +63,37 @@
 <div style="padding-top: 60px">
   <router-outlet></router-outlet>
 </div>
-<button style="border-radius: 90px; border: 1px solid lightgray;" *ngIf="scrollBackButtonVisible" (click)="scrollBackToTop()" type="button" class="btn btn-outline-dark btn-lg myBtn bi bi-caret-up"></button>
+
+
+
 <div #contact style="width: 100%; text-align: -webkit-right;">
   <div class=""
        style="margin:0px 0px 0px 0px; box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 100%; background-color: #fff; padding: 10px;">
+
     <footer class="">
+
+
+
+
+
+      <div style="text-align: -webkit-center">
+        <b>Sponzorok</b>
+        <ul *ngIf="sponsores.length > 0" class="nav justify-content-center border-bottom " style="padding: 10px">
+          <li class="nav-item" *ngFor="let item of sponsores">
+            <img [src]="item.imageUrl" style="margin-left: 10px; margin-right: 10px"  loading="lazy" height="50" matTooltip="{{item.name}}" (click)="redirectToNewPage(item.redirectUrl)" >
+          </li>
+        </ul>
+      </div>
+      <div style="text-align: -webkit-center">
+        <b>Pályázatok</b>
+        <ul *ngIf="tenders.length > 0" class="nav justify-content-center border-bottom " style="padding: 10px">
+
+          <li class="nav-item" *ngFor="let item of tenders">
+            <img [src]="item.imageUrl" style="margin-left: 10px; margin-right: 10px" loading="lazy" height="50" matTooltip="{{item.name}}" (click)="redirectToNewPage(item.redirectUrl)">
+          </li>
+        </ul>
+      </div>
+
       <ul class="nav justify-content-center border-bottom "
           style="display: flex;justify-content: center;">
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Főoldal</a></li>

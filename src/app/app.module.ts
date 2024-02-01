@@ -71,7 +71,37 @@ import {CarouselModule} from "@coreui/angular";
 import {} from "@coreui/icons-angular";
 import {ResultPage} from "./pages/result-page/result.page";
 import {RegistrationPage} from "./pages/registration-page/registration.page";
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatExpansionModule} from "@angular/material/expansion";
 
+import {NgxMaskModule} from 'ngx-mask';
+import {
+  AdminPageSponsorList
+} from "./pages/admin-page/admin-page-sponsor/admin-page-sponsor-list/admin.page.sponsor.list";
+import {
+  AdminPageSponsorDialog
+} from "./pages/admin-page/admin-page-sponsor/admin-page-sponsor-dialog/admin.page.sponsor.dialog";
+import {AdminPageSponsor} from "./pages/admin-page/admin-page-sponsor/admin-page-sponsor/admin.page.sponsor";
+import {AdminPageTender} from "./pages/admin-page/admin-page-tender/admin-page-tender/admin.page.tender";
+import {
+  AdminPageTenderDialog
+} from "./pages/admin-page/admin-page-tender/admin-page-tender-dialog/admin.page.tender.dialog";
+import {AdminPageTenderList} from "./pages/admin-page/admin-page-tender/admin-page-tender-list/admin.page.tender.list";
+import { AdminPageNews } from './pages/admin-page/admin-page-news/admin-page-news/admin.page.news';
+import { AdminPageNewsDialog } from './pages/admin-page/admin-page-news/admin-page-news-dialog/admin.page.news.dialog';
+import { AdminPageNewsList } from './pages/admin-page/admin-page-news/admin-page-news-list/admin.page.news.list';
+import {NewsPage} from "./pages/news/news.page";
+import {NewsPagePage} from "./pages/news-page/news-page.page";
+import {AdminPageImageGalery} from "./pages/admin-page/admin-page-imageGalery/admin-page-tender/admin.page.imageGalery";
+import {
+  AdminPageImageGaleryList
+} from "./pages/admin-page/admin-page-imageGalery/admin-page-tender-list/admin.page.imageGalery.list";
+import {
+  AdminPageImageGaleryDialog
+} from "./pages/admin-page/admin-page-imageGalery/admin-page-tender-dialog/admin-page-image-galery-dialog.component";
+import {GaleryPage} from "./pages/galery-page/galery.page";
+
+// @ts-ignore
 @NgModule({
   declarations: [
     RegistrationPage,
@@ -94,9 +124,26 @@ import {RegistrationPage} from "./pages/registration-page/registration.page";
     AdminPageCheckpointDialog,
     AdminPageCheckpointList,
     AdminPageLogin,
-    ImportantInformationPage
+    ImportantInformationPage,
+    AdminPageSponsor,
+    AdminPageSponsorList,
+    AdminPageSponsorDialog,
+    AdminPageTender,
+    AdminPageTenderDialog,
+    AdminPageTenderList,
+    AdminPageNews,
+    AdminPageNewsDialog,
+    AdminPageNewsList,
+    AdminPageImageGalery,
+    AdminPageImageGaleryDialog,
+    AdminPageImageGaleryList,
+    NewsPage,
+    NewsPagePage,
+    GaleryPage,
+
   ],
   imports: [
+    NgxMaskModule.forRoot(),
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     UploaderModule,
@@ -125,6 +172,9 @@ import {RegistrationPage} from "./pages/registration-page/registration.page";
     MatAutocompleteModule,
     ReactiveFormsModule,
     CarouselModule,
+    MatStepperModule,
+    MatExpansionModule,
+    NgxMaskModule,
 
   ],
   providers: [

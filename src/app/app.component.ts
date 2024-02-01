@@ -8,6 +8,8 @@ import {ExpandedTourEvent} from "./pages/main-page/main.page";
 import {TourEvent} from "./model/tourEvent-model/tourEvent.model";
 import {fromEvent, Observable} from "rxjs";
 import {RegistrationPage} from "./pages/registration-page/registration.page";
+import {Sponsor} from "./model/sponsor-model/sponsor.model";
+import {Tender} from "./model/render-model/tender.model";
 
 
 @Component({
@@ -23,6 +25,25 @@ export class AppComponent implements OnInit{
   expandedTourEvents: ExpandedTourEvent[] = []
   availablePreRegistrations: ExpandedTourEvent[] = []
   scrollBackButtonVisible: boolean = false;
+  sponsores: Sponsor[] = []
+  tenders: Tender[] = []
+
+
+  getSponsorList(){
+    this.globalService.sponsorService.listActive().subscribe(value => {
+      this.sponsores = value;
+    })
+  }
+  getTenderList(){
+    this.globalService.tenderService.listActive().subscribe(value => {
+      this.tenders = value;
+    })
+  }
+
+  redirectToNewPage(url: string | undefined) {
+    if(url == undefined) return
+    window.open(url, '_blank');
+  }
 
   registrationIsActive(tourEvent: TourEvent){
     return this.generalUtils.dateBetween(tourEvent.applicationFrom, tourEvent.applicationTo)
@@ -75,6 +96,9 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     window.addEventListener('scroll', this.scrollEnvet,true)
     this.getDistancesList()
+    this.getTenderList()
+    this.getSponsorList()
+
   }
   scrollEnvet = (event: any) => {
     if(event.target.scrollingElement){

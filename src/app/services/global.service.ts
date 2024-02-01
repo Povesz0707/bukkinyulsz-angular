@@ -12,15 +12,33 @@ import {FileStoreService} from "./fileStore-service/fileStore.service";
 import {OldTeljesitokService} from "./oldTeljesitok-service/oldTeljesitok.service";
 import {UserService} from "./user-service/user.service";
 import {StorageServices} from "./storage-services/storage.services";
+import {GaleryImageService} from "./galeryImage-service/galeryImage.service";
+import {NewsService} from "./news-service/news.service";
+import {SponsorService} from "./sponsor-service/sponsor.service";
+import {TenderService} from "./tender-service/tender.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalService {
-  constructor(public checkpointService: CheckpointService, public distanceService: DistanceService, public markingService: MarkingService, public rewardService: RewardService,
-              public subSectionService: SubSectionService, public tourEventService:TourEventService, public tourEventDistanceService:TourEventDistanceService,
-              public distanceSubSectionService: DistanceSubsectionService, public dialogService: DialogService, public imageStoreService: FileStoreService, public oldTeljesitokService: OldTeljesitokService,
-              public userService: UserService, public storageServices: StorageServices) {
+  constructor(public checkpointService: CheckpointService,
+              public distanceService: DistanceService,
+              public markingService: MarkingService,
+              public rewardService: RewardService,
+              public subSectionService: SubSectionService,
+              public tourEventService:TourEventService,
+              public tourEventDistanceService:TourEventDistanceService,
+              public distanceSubSectionService: DistanceSubsectionService,
+              public dialogService: DialogService,
+              public imageStoreService: FileStoreService,
+              public oldTeljesitokService: OldTeljesitokService,
+              public userService: UserService,
+              public storageServices: StorageServices,
+              public galeryImageService: GaleryImageService,
+              public newsService: NewsService,
+              public sponsorService: SponsorService,
+              public tenderService: TenderService
+              ) {
   }
 }
 

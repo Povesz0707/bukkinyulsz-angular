@@ -20,21 +20,39 @@ import {
 import {ImportantInformationPage} from "./pages/importantInformation-page/importantInformation.page";
 import {ResultPage} from "./pages/result-page/result.page";
 import {AuthGuard} from "./auth/auth.guard";
+import {RegistrationPage} from "./pages/registration-page/registration.page";
+import {AdminPageSponsor} from "./pages/admin-page/admin-page-sponsor/admin-page-sponsor/admin.page.sponsor";
+import {AdminPageTender} from "./pages/admin-page/admin-page-tender/admin-page-tender/admin.page.tender";
+import {AdminPageNews} from "./pages/admin-page/admin-page-news/admin-page-news/admin.page.news";
+import {NewsPage} from "./pages/news/news.page";
+import {NewsPagePage} from "./pages/news-page/news-page.page";
+import {GaleryImage} from "./model/galeryImage-model/galeryImage.model";
+import {AdminPageImageGalery} from "./pages/admin-page/admin-page-imageGalery/admin-page-tender/admin.page.imageGalery";
+import {GaleryPage} from "./pages/galery-page/galery.page";
 
 
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: MainPage, pathMatch: 'prefix'},
+  {path: 'news/:id', component: NewsPage, pathMatch: 'full'},
+  {path: 'newses', component: NewsPagePage, pathMatch: 'prefix'},
+  {path: 'galery', component: GaleryPage, pathMatch: 'prefix'},
   {path: 'resultPage', component: ResultPage, pathMatch: 'prefix'},
   {path: 'distance/:id', component: DistanceView, pathMatch: 'full'},
   {path: 'importantInformation', component: ImportantInformationPage, pathMatch: 'full'},
   {path: 'admin-page/login', component: AdminPageLogin, pathMatch:'full'},
+  {path: 'registration/:tourEventId', component: RegistrationPage, pathMatch:'full'},
+  {path: 'registration/:tourEventId/:distanceId', component: RegistrationPage, pathMatch:'full'},
   {path: 'admin-page/distances', component: AdminPageDistance, pathMatch:'full', canActivate: [AuthGuard]},
   {path: 'admin-page/login', component: AdminPageLogin, pathMatch:'full', canActivate: [AuthGuard]},
   {path: 'admin-page/event', component: AdminPageEvent, pathMatch:'full', canActivate: [AuthGuard]},
   {path: 'admin-page/subSection', component: AdminPageSubSection, pathMatch:'full', canActivate: [AuthGuard]},
   {path: 'admin-page/checkpoint', component: AdminPageCheckpoint, pathMatch:'full', canActivate: [AuthGuard]},
+  {path: 'admin-page/sponsor', component: AdminPageSponsor, pathMatch:'full', canActivate: [AuthGuard]},
+  {path: 'admin-page/tender', component: AdminPageTender, pathMatch:'full', canActivate: [AuthGuard]},
+  {path: 'admin-page/news', component: AdminPageNews, pathMatch:'full', canActivate: [AuthGuard]},
+  {path: 'admin-page/imageGalery', component: AdminPageImageGalery, pathMatch:'full', canActivate: [AuthGuard]},
   {path: '**', redirectTo: '404'}
 
 ];

@@ -6,7 +6,7 @@
 <div mat-dialog-content style="font-size: 14px">
   <div class="row">
     <div class="col-6" style="align-self: center;">
-      <table class="table table-borderless table-sm ">
+      <table class="table table-borderless table-sm unsetBorderTableRow">
         <tbody>
         <tr *ngIf="generalUtils.sumDistanceByDistance(distance)">
           <td><b>Hossz</b></td><td>{{generalUtils.sumDistanceByDistance(distance)}} km</td>
@@ -105,7 +105,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let ds of distance.distanceSubsections">
-          <td style="display: flex;">{{ds?.subSection?.checkpointFrom?.name}}
+          <td style="">{{ds?.subSection?.checkpointFrom?.name}}
             <i *ngIf="ds?.subSection?.checkpointFrom?.isMainCheckpoint" style="font-weight: bold; font-size: 20px" class="bi bi-card-checklist" matTooltip="Ellenőrzőpont"></i>
             <i *ngIf="ds?.subSection?.checkpointFrom?.checkingType == generalUtils.CHECKING_TYPE_PERSONAL" style="padding-left:5px; font-size: 20px" class="bi bi-person" matTooltip="Személyes ellenörzőpont"></i>
             <i *ngIf="ds?.subSection?.checkpointFrom?.checkingType == generalUtils.CHECKING_TYPE_CODE" style="padding-left:5px; font-size: 20px" class="bi bi-spellcheck" matTooltip="Kódos ellenörzőpont"></i>

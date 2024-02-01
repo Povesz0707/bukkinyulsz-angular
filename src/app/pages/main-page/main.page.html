@@ -42,10 +42,10 @@
     </div>
   </div>
 </div>-->
-<c-carousel  [interval]="100000" class="mat-elevation-z8" >
+<c-carousel *ngIf="expandedTourEvents.length > 0"  [interval]="100000" class="mat-elevation-z8" >
   <c-carousel-indicators></c-carousel-indicators>
-  <c-carousel-inner>
-    <c-carousel-item *ngFor="let event of expandedTourEvents">
+  <c-carousel-inner >
+    <c-carousel-item  *ngFor="let event of expandedTourEvents">
       <img
         [src]="event.tourEvent.bannerImage"
         class="d-block w-100"
@@ -77,7 +77,6 @@
         </div>
       </div>
     </c-carousel-item>
-
     <c-carousel-item >
       <img
         src="http://localhost:8080/api/fileStore/ZGlzdGFuY2UvMS9sb2dvVXJsLzNlOTQ1NDhiLTY5NzMtNGZlNi05ZTJlLWExNzJlZTE3YTE2ZS5qcGc="
@@ -120,78 +119,104 @@
     </div>
   </div>
 </div>-->
+<div class="row" style="align-items: center;">
+  <div *ngIf="newses.length > 0" class="col-sm-3" style="align-items: center;">
 
-
-<section id="scrollspyHeading1">
-  <div style="width: 100%; padding: 10px; text-align: -webkit-center;">
-    <div class="card"
-         style="box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 90%; background-color: #fff; padding: 10px;">
-      <h2 style="text-align: -webkit-left;" class="card-title"><b>Infók a BükKiNyúlsz! túrák instant
-        (egyéni) teljesítéséről</b></h2>
-      <h6 style="text-align: -webkit-left;" class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-      <div class="card-body" style="display: flex;">
-        <div style="text-align: start;">
-          <p class="ng-scope">A Bükk déli oldala számos csodás helyszínt rejteget! Ezért szerveznek
-            megannyi (teljesítmény)túrát, erre a vidékre, ezért rendeztük mi is az elmúlt két évben
-            Cserépfalu környékére a BükKiNyúlsz! túrákat és ezért invitálunk Téged újra a vidékre a
-            BükKiNyúlsz! 365 instant túránk teljesítésével!</p>
-          <p class="ng-scope">Itt az alkalom tehát, hogy felfedezd, felidézd, átéld a környék
-            milliőjét, elkerülve a tömegturizmust, átadva magad a Bükk vadonjának! A táj, a
-            Hór-völgye, Ódorvár bérce, vagy az Oszlai Tájház csendje magával ragad és visszavár az
-            év bármely szakában, legyen szó csoportos rendezvényekről, teljesítménytúrákról,
-            vezetett kirándulásokról, vagy akár magányos barangolásról!</p>
-          <p class="ng-scope">Na de miről is szól a BükKiNyúlsz! 365? Egy olyan túraútvonal ez, melyen
-            Te döntöd el, hogy mikor indulsz el, és szintén rajtad áll, hogy sportosan, vagy csak
-            kellemesen járod be a pályát! Akár csak egy teljesítménytúrán, itt is meghatározott
-            útvonalon kell haladnod, előre megadott pontokat érintve! Természetesen itt még nem ér
-            véget a móka, mivel minden távra meghatároztunk egy minimális szintidőt is. Ne aggódj,
-            nem leszünk kegyetlenek!</p>
-          <p class="ng-scope">Ha szintidőn belül érsz célba, minden esetben oklevellel jutalmazunk.
-            Ezen felül a nevezésnél választhatod a különleges, kézzel készült, mázas cserép érménket
-            is, hiszen mégiscsak Cserépfalu szomszédságában jársz! </p>
-          <p class="ng-scope">A jelenleg megnyitott 3 útvonal tehát (
-            <b><a class="link-success" ui-sref="leiras({leirasDoc:&#39;13&#39;})" href="https://bukkinyulsz.hu/#/leiras/hu/13">13 km <i class="link-success bi bi-box-arrow-in-right"></i></a></b>,
-            <b><a class="link-success" ui-sref="leiras({leirasDoc:&#39;26&#39;})" href="https://bukkinyulsz.hu/#/leiras/hu/26">26 km <i class="link-success bi bi-box-arrow-in-right"></i></a></b> és
-            <b><a class="link-success" ui-sref="leiras({leirasDoc:&#39;35&#39;})" href="https://bukkinyulsz.hu/#/leiras/hu/35">35 km <i class="link-success bi bi-box-arrow-in-right"></i></a></b>
-            ) bármikor teljesíthető. Ehhez
-            mindössze egy vagy több elhivatott túrázóra és persze mobiltelefonra van szükség - az
-            ajálott felszereléseken túl! Indulás előtt mindenképp tanulmányozd a teljesítés
-            menetéről és az ajánlott felszerelésről szóló tájékoztatónkat! Az útvonalakra bármelyik
-            ellenőrzőpontról becsatlakozhatsz, de az infrastruktúra és a parkolási / vízvételi
-            lehetőségek miatt mi a Cserépfalu szélén található Suba-lyuk Múzeum és Látogatóközpontot
-            ajánljuk starthelyként.</p>
-          <p class="ng-scope">A sikeres teljesítéshez, .gpx trackkel, szöveges itinerrel, illetve
-            kinyomtatható térképpel is segítünk, hogy biztosan a megfelelő úton indulj el! A túra
-            indításának, virtuális pecsételésének megismeréséhez látogass el a tehát
-            <b><a href="https://geogo.hu/info" class="link-success" target="_blank">GeoGo oldalára<i class="link-success bi bi-box-arrow-in-right"></i></a></b>, mely a teljesítés elengedhetetlen feltétele.</p>
-          <p class="ng-scope">Ha a túra felkeltette az érdeklődésed, nincs más hátra, ugorj a nevezési
-            felületre!</p>
+    <div style="width: 100%; padding: 10px; text-align: -webkit-center;">
+      <h1 style="font-size: 40px !important; font-weight: bold; margin: 10px">Hírek</h1>
+      <div class="card" *ngFor="let item of newses" style=" box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 90%; background-color: #fff; padding: 10px; margin: 10px">
+        <h2 style="text-align: -webkit-center;" class="card-title"><b>{{item.title}}</b></h2>
+        <h6 *ngIf="item.subTitle" style="text-align: -webkit-center;" class="card-subtitle mb-2 text-muted">{{ item.subTitle }}}}</h6>
+        <h6 style="text-align: -webkit-center;" class="card-subtitle mb-2 text-muted">{{ generalUtils.getLocaleDateTimeString(item.inserted) }}</h6>
+        <div class="card-body" style="display: flex; text-align: -webkit-center;">
+          <div style="text-align: -webkit-center;">
+            <img *ngIf="item.imageURL" [src]="item.imageURL" height="150">
+            <p class="ng-scope">{{generalUtils.getSubstring(item.content, 200)}}</p>
+            <button type="button" class="btn btn-outline-primary btn-sm"  (click)="redirectToNews(item.id)" >Tovább a teljes hírhez  <i class="bi bi-arrow-right-circle"></i></button>
+          </div>
         </div>
-        <div
-          style="box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5); margin: 10px;     align-self: center;">
-        </div>
-      </div>
-      <div>
       </div>
     </div>
   </div>
-</section>
+  <div [ngClass]="newses.length > 0  ? 'col-sm-9' : 'col-sm-12'">
+    <section id="scrollspyHeading1">
+      <div style="width: 100%; padding: 10px; text-align: -webkit-center;">
+        <div class="card"
+             style="box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 90%; background-color: #fff; padding: 10px;">
+          <h2 style="text-align: -webkit-left;" class="card-title"><b>Infók a BükKiNyúlsz! túrák instant
+            (egyéni) teljesítéséről</b></h2>
+          <h6 style="text-align: -webkit-left;" class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <div class="card-body" style="display: flex;">
+            <div style="text-align: start;">
+              <p class="ng-scope">A Bükk déli oldala számos csodás helyszínt rejteget! Ezért szerveznek
+                megannyi (teljesítmény)túrát, erre a vidékre, ezért rendeztük mi is az elmúlt két évben
+                Cserépfalu környékére a BükKiNyúlsz! túrákat és ezért invitálunk Téged újra a vidékre a
+                BükKiNyúlsz! 365 instant túránk teljesítésével!</p>
+              <p class="ng-scope">Itt az alkalom tehát, hogy felfedezd, felidézd, átéld a környék
+                milliőjét, elkerülve a tömegturizmust, átadva magad a Bükk vadonjának! A táj, a
+                Hór-völgye, Ódorvár bérce, vagy az Oszlai Tájház csendje magával ragad és visszavár az
+                év bármely szakában, legyen szó csoportos rendezvényekről, teljesítménytúrákról,
+                vezetett kirándulásokról, vagy akár magányos barangolásról!</p>
+              <p class="ng-scope">Na de miről is szól a BükKiNyúlsz! 365? Egy olyan túraútvonal ez, melyen
+                Te döntöd el, hogy mikor indulsz el, és szintén rajtad áll, hogy sportosan, vagy csak
+                kellemesen járod be a pályát! Akár csak egy teljesítménytúrán, itt is meghatározott
+                útvonalon kell haladnod, előre megadott pontokat érintve! Természetesen itt még nem ér
+                véget a móka, mivel minden távra meghatároztunk egy minimális szintidőt is. Ne aggódj,
+                nem leszünk kegyetlenek!</p>
+              <p class="ng-scope">Ha szintidőn belül érsz célba, minden esetben oklevellel jutalmazunk.
+                Ezen felül a nevezésnél választhatod a különleges, kézzel készült, mázas cserép érménket
+                is, hiszen mégiscsak Cserépfalu szomszédságában jársz! </p>
+              <p class="ng-scope">A jelenleg megnyitott 3 útvonal tehát (
+                <b><a class="link-success" ui-sref="leiras({leirasDoc:&#39;13&#39;})" href="https://bukkinyulsz.hu/#/leiras/hu/13">13 km <i class="link-success bi bi-box-arrow-in-right"></i></a></b>,
+                <b><a class="link-success" ui-sref="leiras({leirasDoc:&#39;26&#39;})" href="https://bukkinyulsz.hu/#/leiras/hu/26">26 km <i class="link-success bi bi-box-arrow-in-right"></i></a></b> és
+                <b><a class="link-success" ui-sref="leiras({leirasDoc:&#39;35&#39;})" href="https://bukkinyulsz.hu/#/leiras/hu/35">35 km <i class="link-success bi bi-box-arrow-in-right"></i></a></b>
+                ) bármikor teljesíthető. Ehhez
+                mindössze egy vagy több elhivatott túrázóra és persze mobiltelefonra van szükség - az
+                ajálott felszereléseken túl! Indulás előtt mindenképp tanulmányozd a teljesítés
+                menetéről és az ajánlott felszerelésről szóló tájékoztatónkat! Az útvonalakra bármelyik
+                ellenőrzőpontról becsatlakozhatsz, de az infrastruktúra és a parkolási / vízvételi
+                lehetőségek miatt mi a Cserépfalu szélén található Suba-lyuk Múzeum és Látogatóközpontot
+                ajánljuk starthelyként.</p>
+              <p class="ng-scope">A sikeres teljesítéshez, .gpx trackkel, szöveges itinerrel, illetve
+                kinyomtatható térképpel is segítünk, hogy biztosan a megfelelő úton indulj el! A túra
+                indításának, virtuális pecsételésének megismeréséhez látogass el a tehát
+                <b><a href="https://geogo.hu/info" class="link-success" target="_blank">GeoGo oldalára<i class="link-success bi bi-box-arrow-in-right"></i></a></b>, mely a teljesítés elengedhetetlen feltétele.</p>
+              <p class="ng-scope">Ha a túra felkeltette az érdeklődésed, nincs más hátra, ugorj a nevezési
+                felületre!</p>
+            </div>
+            <div
+              style="box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5); margin: 10px;     align-self: center;">
+            </div>
+          </div>
+          <div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<div style="width: 100%; padding: 10px; text-align: -webkit-center;">
-  <div class="card"
-       style=" box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 90%; background-color: #fff; padding: 10px;">
-    <h2 style="text-align: -webkit-left;" class="card-title"><b>Díjazás (Instant túra)</b></h2>
-    <h6 style="text-align: -webkit-left;" class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-    <div class="card-body" style="display: flex;">
-      <div style="text-align: start;">
-        <p class="ng-scope">A nevezésnél választható csomagok alapján: </p>
-        <ul class="ng-scope">
-          <li>oklevél</li>
-          <li>egyedi, kézzel készült cserépérem</li>
-        </ul>
+    <div style="width: 100%; padding: 10px; text-align: -webkit-center;">
+      <div class="card"
+           style=" box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 90%; background-color: #fff; padding: 10px;">
+        <h2 style="text-align: -webkit-left;" class="card-title"><b>Díjazás (Instant túra)</b></h2>
+        <h6 style="text-align: -webkit-left;" class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <div class="card-body" style="display: flex;">
+          <div style="text-align: start;">
+            <p class="ng-scope">A nevezésnél választható csomagok alapján: </p>
+            <ul class="ng-scope">
+              <li>oklevél</li>
+              <li>egyedi, kézzel készült cserépérem</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!--class="transform"-->
+
+
+
   </div>
+
 </div>
 <section id="scrollspyHeading2">
   <div style="width: 100%; padding: 10px; text-align: -webkit-center;">
@@ -221,7 +246,6 @@
     </div>
   </div>
 </section>
-<!--class="transform"-->
 <div  style="width: 100%; padding: 10px; text-align: -webkit-center;">
   <div class="card "
        style=" box-shadow: 0px 0px 20px 10px rgba(180,180,180,0.5);width: 90%; background-color: #fff; padding: 10px;">
@@ -249,6 +273,11 @@
     </div>
   </div>
 </div>
+
+
+
+
+
 
 
 

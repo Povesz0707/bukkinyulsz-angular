@@ -68,9 +68,9 @@ export class AdminPageDistanceDialog implements OnInit{
 
   uploadAllFiles(id?: number){
     this.uploadFile(this.logoFile, 'distance','logoUrl', id)
-    this.uploadFile(this.logoFile, 'distance','gpxFile', id)
-    this.uploadFile(this.logoFile, 'distance','leirasFile', id)
-    this.uploadFile(this.logoFile, 'distance','terkepFile', id)
+    this.uploadFile(this.gpxFile, 'distance','gpxFile', id)
+    this.uploadFile(this.leirasFile, 'distance','leirasFile', id)
+    this.uploadFile(this.terkepFile, 'distance','terkepFile', id)
   }
 
   uploadFile(uploadFile?: File , mainFolder?: string, uploadDir?: string, id?:number){
@@ -94,7 +94,6 @@ export class AdminPageDistanceDialog implements OnInit{
         })
       }
     }
-
   }
   onFileSelected(event: any, uploadDir: string) {
     const file:File = event.target.files[0];

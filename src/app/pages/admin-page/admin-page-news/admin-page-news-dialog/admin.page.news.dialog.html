@@ -1,0 +1,82 @@
+<div mat-dialog-title style="width: 100%;display: flex;padding: 9px 24px 9px;">
+  <label style="width: -webkit-fill-available;">{{tileText}}</label>
+  <button type="button" mat-dialog-close class="btn btn btn-light btn-sm bi bi-x-lg"></button>
+</div>
+<mat-dialog-content>
+  <mat-tab-group >
+    <mat-tab  label="Álltalános adatok">
+      <div style=" padding: 20px">
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%">
+              <mat-label>id</mat-label>
+              <input matInput  type="text"  [(ngModel)]="item.id" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Állapot</mat-label>
+              <input  matInput  type="text" [(ngModel)]="item.enabled" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Létrehozás dátuma</mat-label>
+              <input  matInput  type="text" [ngModel]="generalUtils.getLocaleDateTimeString(item.inserted)" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Utolsó frissítás dátuma</mat-label>
+              <input  matInput  type="text" [ngModel]="generalUtils.getLocaleDateTimeString(item.updated)" disabled>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="align-items: center;">
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>title</mat-label>
+              <input  matInput  type="text" [(ngModel)]="item.title">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>subTitle</mat-label>
+              <input  matInput  type="text" [(ngModel)]="item.subTitle">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <textarea matInput maxlength="1000" style="height: auto;" rows="5"  [(ngModel)]="item.content"></textarea>
+              <mat-hint align="end">{{item.content ? item.content.length : 0}} / 1000</mat-hint>
+            </mat-form-field>
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <mat-form-field appearance="outline" floatLabel="always" style="width: 100%;">
+              <mat-label>Logo URL</mat-label>
+              <input disabled matInput  type="text" [(ngModel)]="item.imageURL">
+            </mat-form-field>
+          </div>
+
+          <div class="col-sm-4" style="    align-self: stretch;">
+            <input style="padding-top: 10px;" #csvInput type="file" accept="image/png, image/gif, image/jpeg" onclick="this.value=null" (change)="onFileSelected($event, 'tender')"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <mat-slide-toggle [(ngModel)]="item.active">Aktív</mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-dialog-close type="button" class="btn btn-outline-danger btn-sm" style="margin-right: 20px">Elvetés</button>
+  <button type="button" class="btn btn-outline-primary btn-sm"  (click)="save()" >Mentés</button>
+</mat-dialog-actions>
